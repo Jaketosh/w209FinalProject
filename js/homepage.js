@@ -170,8 +170,16 @@ function render(data, id, onMouseover, onMouseout) {
   // M2 - every 7 days
   // Sp500 - everyone except weekend and holiday
   function highlight(di) {
-    dotPlot.attr("r", (dj) => (di.date.getMonth() === dj.date.getMonth() && di.date.getYear() === dj.date.getYear()) ? (data.length < 200 ? bigDotSize : bigDotSize - 2.5) : (data.length < 200 ? normalDotSize : smallDotSize))
-      .style("fill", (dj) => (di.date.getMonth() === dj.date.getMonth() && di.date.getYear() === dj.date.getYear()) ? "red" : "#69b3a2")
+    dotPlot
+      .attr("r", (dj) => (di.date.getMonth() === dj.date.getMonth() && 
+        di.date.getYear() === dj.date.getYear()) ? 
+        (data.length < 200 ? bigDotSize : bigDotSize - 2.5) : 
+        (data.length < 200 ? normalDotSize : smallDotSize)
+      )
+      .style("fill", (dj) => (di.date.getMonth() === dj.date.getMonth() && 
+        di.date.getYear() === dj.date.getYear()) ? 
+        "red" : "#69b3a2"
+      )
   }
 
   function unhighlight() {
