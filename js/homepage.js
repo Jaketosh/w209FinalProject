@@ -81,6 +81,10 @@ function render(data, id, onMouseover, onMouseout) {
   const width = svgWidth - margin.left - margin.right;
   const height = svgHeight - margin.top - margin.bottom;
 
+  const smallDotSize = 0.5
+  const normalDotSize = 2.5
+  const bigDotSize = 5
+
   // xScale
   const xScale = d3
     .scaleTime()
@@ -131,7 +135,7 @@ function render(data, id, onMouseover, onMouseout) {
     .join("circle")
     .attr("cx", (d) => xScale(d["date"]))
     .attr("cy", (d) => yScale(d["value"]))
-    .attr("r", 2.5)
+    .attr("r", data.length < 200 ? normalDotSize : smallDotSize)
     .style("fill", "#69b3a2")
 
   svg
@@ -166,19 +170,18 @@ function render(data, id, onMouseover, onMouseout) {
   // M2 - every 7 days
   // Sp500 - everyone except weekend and holiday
   function highlight(di) {
-    dotPlot.attr("r", (dj) => (di.date.getMonth() === dj.date.getMonth() && di.date.getYear() === dj.date.getYear()) ? 5 : 2.5)
+    dotPlot.attr("r", (dj) => (di.date.getMonth() === dj.date.getMonth() && di.date.getYear() === dj.date.getYear()) ? (data.length < 200 ? bigDotSize : bigDotSize - 2.5) : (data.length < 200 ? normalDotSize : smallDotSize))
       .style("fill", (dj) => (di.date.getMonth() === dj.date.getMonth() && di.date.getYear() === dj.date.getYear()) ? "red" : "#69b3a2")
   }
 
   function unhighlight() {
-    // dotPlot.attr("r", 2.5)
-    // .style("fill", "#69b3a2")
+    dotPlot.attr("r", data.length < 200 ? normalDotSize : smallDotSize)
+    .style("fill", "#69b3a2")
   }
 
   const formatDate = d3.timeFormat("%B %d, %Y");
   const formatValue = d3.format(".0f")
-  function calculatePercentageChange(d, i, path) {
-    console.log("path", path);
+  function calculatePercentageChange(d) {
     var val = (d.value - data[0].value) / data[0].value * 100;
     val =  d3.format(".2f")(val);
     return val;
@@ -192,7 +195,6 @@ function render(data, id, onMouseover, onMouseout) {
     .style("visibility", "hidden");
   
   function showTooltip(d) {
-    console.log("tooltip datum", d)
     tooltip
       .style("visibility", "visible")
       // .html("Date: " + formatDate(d.date) + "<br/>"  + "Value: " + formatValue(d.value))
@@ -247,7 +249,6 @@ Promise.all([loaderGDP.data, loaderUnemployment.data, loaderM2.data, loaderSP500
 
   // ========== handleMouseover and handleMourout
   function handleMouseover(di, renderObject) {
-    console.log("handle mouseover")
     renderGDP.highlight(di)
     renderUnemployment.highlight(di)
     renderM2.highlight(di)
@@ -274,5 +275,4 @@ Promise.all([loaderGDP.data, loaderUnemployment.data, loaderM2.data, loaderSP500
   setMouseEvents(renderM2);
   setMouseEvents(renderSP500);
 
-  console.log("call function")
 })
