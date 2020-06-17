@@ -1,26 +1,61 @@
 <html>
-    <title>U-Shape vs V-Shape Recession</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    
-    <body id="bodyMain">
-        <script src="js/makeHeader.js"></script>
+  <title>U-Shape vs V-Shape Recession</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+  <body id="bodyMain">
+    <script src="js/makeHeader.js"></script>
+
+    <h1>HomePage</h1>
+    <div class="card">
+      <h1>Major Indicators of the United States Economy since 2007</h1>
+      <!-- <svg height="200px" width="300px">
+        <rect height="200px" width="300px" fill="black"></rect>
+      </svg> -->
+      <div class="container chartContainer row justify-content-md-center">
+        <div id="gdpsvgContainer">
+          <svg id="gdpsvg"></svg>
+          <tooltip></tooltip>
+        </div>
         
-        <h1>HomePage</h1>
-        <div class="card">
-            <h1>This is a content box</h1>
-            <svg height="200px" width="300px">
-                <rect height="200px" width = "300px" fill= "black"></rect>
-            </svg>
+        <br />
+        <br />
+        
+        <div id="sp500svgContainer">
+          <svg id="sp500svg"></svg>
+          <tooltip></tooltip>
         </div>
-        <div class="card">
-            <h1>This is a content box</h1>
-            <svg height="200px" width="300px">
-                <rect height="200px" width = "300px" fill= "black"></rect>
-            </svg>
+        
+        <br />
+        <br />
+        
+        <div id="m2svgContainer">
+          <svg id="m2svg"></svg>
+          <tooltip></tooltip>
         </div>
-    </body>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
-    <script type="module" src="js/util.js"></script>
-    <script type="module" src="js/homepage.js"></script>
+        
+        <br />
+        <br />
+
+        <div id="unemploymentsvgContainer">
+          <svg id="unemploymentsvg"></svg>
+          <tooltip></tooltip>
+        </div>
+        
+        <br />
+        <br />
+      </div>
+    </div>
+    <div class="card">
+      <h1>This is a content box</h1>
+      <svg height="200px" width="300px">
+        <rect height="200px" width="300px" fill="black"></rect>
+      </svg>
+    </div>
+  </body>
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script> -->
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
+  <script type="module" src="js/util.js"></script>
+  <script type="module" src="js/homepage.js"></script>
 </html>
