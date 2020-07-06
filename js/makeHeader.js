@@ -50,6 +50,13 @@ menuLink4.appendChild(document.createTextNode("Page3"));
 menuItem4.appendChild(menuLink4);
 list.appendChild(menuItem4);
 
+var menuItem5 = document.createElement("li");
+var menuLink5 = document.createElement("a");
+menuLink5.setAttribute("href", "PreFace.html");
+menuLink5.appendChild(document.createTextNode("PreFace"));
+menuItem5.appendChild(menuLink5);
+list.appendChild(menuLink5);
+
 menu.appendChild(list);
 
 var body = document.getElementById("bodyMain");
