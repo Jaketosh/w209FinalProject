@@ -1,61 +1,317 @@
-<html>
-  <title>U-Shape vs V-Shape Recession</title>
-  <link rel="stylesheet" type="text/css" href="css/main.css" />
+<!DOCTYPE html>
+<html lang="en">
 
-  <body id="bodyMain">
-    <script src="js/makeHeader.js"></script>
+<head>
 
-    <h1>HomePage</h1>
-    <div class="card">
-      <h1>Major Indicators of the United States Economy since 2007</h1>
-      <!-- <svg height="200px" width="300px">
-        <rect height="200px" width="300px" fill="black"></rect>
-      </svg> -->
-      <div class="container chartContainer row justify-content-md-center">
-        <div id="gdpsvgContainer">
-          <svg id="gdpsvg"></svg>
-          <tooltip></tooltip>
-        </div>
-        
-        <br />
-        <br />
-        
-        <div id="sp500svgContainer">
-          <svg id="sp500svg"></svg>
-          <tooltip></tooltip>
-        </div>
-        
-        <br />
-        <br />
-        
-        <div id="m2svgContainer">
-          <svg id="m2svg"></svg>
-          <tooltip></tooltip>
-        </div>
-        
-        <br />
-        <br />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <div id="unemploymentsvgContainer">
-          <svg id="unemploymentsvg"></svg>
-          <tooltip></tooltip>
-        </div>
-        
-        <br />
-        <br />
-      </div>
-    </div>
-    <!-- <div class="card">
-      <h1>This is a content box</h1>
-      <svg height="200px" width="300px">
-        <rect height="200px" width="300px" fill="black"></rect>
-      </svg>
-    </div> -->
-  </body>
+    <title>Are we still in a recession?</title>
 
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script> -->
-  <script src="https://d3js.org/d3.v5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
-  <script type="module" src="js/util.js"></script>
-  <script type="module" src="js/homepage.js"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="vendor/openpage-scroll/js/jquery.onepage-scroll.js"></script>
+    <link href='vendor/openpage-scroll/css/onepage-scroll.css' rel="stylesheet">
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/1.18.0/d3-annotation.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Theme CSS -->
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- Custom scripts -->
+    <script src="js/shared.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/main_events.js"></script>
+
+</head>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- INTIAL SETUP ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <a class="navbar-brand">Recessions</a>
+        </div>
+        <div class="container">
+
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a>Home</a></li>
+                    <li><a>Preface</a></li>
+                    <li><a>Ch. 1</a></li>
+                    <li><a>Recessionary Curves</a></li>
+                    <li><a>Ch. 2</a></li>
+                    <li><a>Recessionary Measures</a></li>
+                    <li><a>Ch. 3</a></li>
+                    <li><a>Alt. Recessionary Measures</a></li>
+                    <li><a>Summary</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- TITLE PAGE ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+    <div class="main">
+        <section class="page1">
+            <div class='chapter' id="intro">
+                <div class='container'>
+                    <div class="intro-text">
+                        <div class="intro-heading">Are we still in a recession following COVID-19?</div>
+                        
+                        <p class="intro-note "><span class="section-note">Note: </span>Please view this website on Chrome. It may not function properly on other browsers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- PREFACE ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page2">
+            <div class='chapter' id='preface'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Preface</h2>
+                        </div>
+                    </div>
+                    
+                    <p> ERIN TO FILL IN </p>
+                </div>
+            </div>
+        </section>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- TYPES OF CURVE INTRO ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page3 chapter-intro">
+            <div class='chapter' id='fed'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Chapter I</h2>
+                            <h3 class="section-subheading">An Introduction to different types of recessionary curves</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8 text-center">
+                            <p class="text-muted">
+                                Recession shapes are used by economists to describe different types of recessions. There is no specific academic theory or classification system for recession shapes; rather the terminology is used as an informal shorthand to characterize recessions and their recoveries.
+                            </p>
+                            </br>
+                            <p class="text-muted">
+                               The most commonly used terms are V-shaped, U-shaped, W-shaped, and L-shaped recessions. The shapes take their names from the approximate shape economic data make in graphs during recessions. The letters can also be applied referring to the recoveries (for example, a "V-shaped recovery").
+                            </p>
+
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- CURVE VISUAL ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page4">
+            <div class='chapter' id='fed-vis'>
+                <div class="container" class="col-xs-9">
+                    <div class="row">
+                        <h2 class="section-heading less">Types of Recessionary Curves</h2>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- STANDARD RECESSIONARY METRICS INTRO  ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+
+        <section class="page5 chapter-intro">
+            <div class='chapter' id='stock'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Chapter II</h2>
+                            <h3 class="section-subheading">Standard Recessionary Indicators</h3>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8 text-center">
+                                           </br>
+
+                               <p class="text-muted"> <strong> Gross Domestic Product (GDP) </strong>
+Gross Domestic Product (GDP) is the monetary value of all finished goods and services made within a country during a specific period. GDP provides an economic snapshot of a country, used to estimate the size of an economy and growth rate. GDP can be calculated in three ways, using expenditures, production, or incomes.
+                                </p>
+                            </br>
+
+                               <p class="text-muted"> <strong> S&P500 </strong>
+The S&P 500 or Standard & Poor's 500 Index is a market-capitalization-weighted index of the 500 largest U.S. publicly traded companies. The index is widely regarded as the best gauge of large-cap U.S. equities. Other common U.S. stock market benchmarks include the Dow Jones Industrial Average or Dow 30 and the Russell 2000 Index, which represents the small-cap index.
+                                </p>
+                            </br>
+                               <p class="text-muted"> <strong> M2 </strong>
+M2 is a calculation of the money supply that includes all elements of M1 as well as "near money." M1 includes cash and checking deposits, while near money refers to savings deposits, money market securities, mutual funds, and other time deposits. These assets are less liquid than M1 and not as suitable as exchange mediums, but they can be quickly converted into cash or checking deposits.
+                                </p>
+                            </br>
+                               <p class="text-muted"> <strong> Gross Domestic Product (GDP) </strong>
+Gross Domestic Product (GDP) is the monetary value of all finished goods and services made within a country during a specific period. GDP provides an economic snapshot of a country, used to estimate the size of an economy and growth rate. GDP can be calculated in three ways, using expenditures, production, or incomes.
+                                </p>
+                            </br>
+
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- STANDARD RECESSIONARY METRICS VISUAL  ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page6 stock-bond">
+            <div class='chapter' id='stcok-vis'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2 class="section-heading">Standard Recessionary Metrics</h2>
+                            <h3 class="section-subheading">SONYA TO FILL IN</h3>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- ALT RECESSIONARY METRICS INTRO  ----------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page7 stock-bond">
+            <div class='chapter' id='bond-vis'>
+                <div class='container'>
+                    <div class="row">
+                        <h2 class="section-heading">Chapter 3</h2>
+                        <h3 class="section-subheading">What other things can we look at? </h3>
+                        <p class="text-muted">ERIN TO FILL IN</p>
+                    </div>
+                   
+                </div>
+            </div>
+        </section>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- ALT RECESSIONARY METRICS VISUAL  ---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+
+        <section class="page8 chapter-intro">
+            <div class='chapter' id='life'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Alternative Measures</h2>
+                            
+                        </div>
+
+                        <p> KEVIN TO FILL IN </p>
+                    </div>
+                   
+                    </div>
+                </div>
+        </section>
+
+ 
+ <!---------------------------------------------------------------------------------------------------------------------->
+<!-- FINAL SUMMARY  ---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+        <section class="page12 ">
+            <div class='chapter' id='summary'>
+                <div class='container'>
+                    <div class="row ">
+                        <div class="col-lg-12 text-center ">
+                            <h2 class="section-heading ">Summary</h2>
+                            <p class="text-muted">ARE WE STILL IN A RECESSION?  ERIN TO FILL IN</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2 class="section-heading text-center">Sources</h2>
+                            <p><span class="underline bold text-center ">Works Cited</span></p>
+                            <p class="text-muted">1. 90% Increase in Stocks from <a href="https://finance.yahoo.com/news/the-fed-caused-93--of-the-entire-stock-market-s-move-since-2008--analysis-194426366.html">Fed actions: Brian Barnier, principal at ValueBridge Advisors (2017)</a></p>
+                            <p class="text-muted">2. Bureau of Labor Statistics, U.S. Department of Labor, The Economics Daily, Labor force participation projected to fall for people under age 55 and rise for older age groups on the Internet at <a href="https://www.bls.gov/opub/ted/2014/ted_20140106.html">here</a>
+                            (visited August 17, 2017).</p>
+                            <p><span class="underline bold text-center ">Data Sources</span></p>
+                            <p class="text-muted">1. Balance sheet data: <a href="https://www.federalreserve.gov/">Federal Reserve</a></p>
+                            <p class="text-muted">2. Stock and Bond Prices: Courtesy of Colfondos</p>
+                            <p class="text-muted">3. Income-Expense Data: <a href="https://www.bls.gov/data/">Bureau of Labor Statistics</a></p>
+                            <p class="text-muted">4. Debt Data: <a href="https://www.newyorkfed.org/">New York Fed</a></p>
+                            <p><span class="underline bold text-center">Packages used: </span></p>
+                            <p class="text-muted">D3 Library</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <h2 class="section-heading text-center">About Us</h2>
+                            <p><span class="underline bold ">Authors:</span></p>
+                            <p class="text-muted">Kevin Kory, Jacob Tosh, Erin Stanton, Sonya Chen</p>
+                            <p><span class="underline bold ">Purpose:</span></p>
+                            <p class="text-muted">Create an interactive textbook to allow users to answer the question, 'Are we still in a recession' for themselves.</p>
+                            <p><span class="underline bold ">Uses:</span></p>
+                            <p class="text-muted">Those with a basic economic and financial background but who are not overly familiar with recessions.</p>
+                            <p><span class="underline bold ">For Further Questions or Comments:</span></p>
+                            <p class="text-muted">jacobtosh@berkeley.edu</p>
+                            <p><span class="underline bold ">Final Version:</span></p>
+                            <p class="text-muted">7/12/2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+</body>
+
 </html>
