@@ -13,9 +13,12 @@ const titles = {
 var parseDate = d3.timeParse("%Y-%m-%d")
 
 const financialCrisis = [
-  // {start: parseDate("1948-11-01"), end: parseDate("1949-10-01")},
-  // {start: parseDate("1953-07-01"), end: parseDate("1954-05-01")},
+  // {start: parseDate("1948-11-01"), end: parseDate("1949-10-01"), name: ""},
+  // {start: parseDate("1953-07-01"), end: parseDate("1954-05-01"), name: ""},
   // .... skips many. TODO: add 
+  {start: parseDate("1980-01-01"), end: parseDate("1980-07-01"), name: "1980 recession"},
+  {start: parseDate("1981-07-01"), end: parseDate("1982-11-01"), name: "1981–1982 recession"},
+  {start: parseDate("1990-07-01"), end: parseDate("1991-03-01"), name: "Early 1990s recession"},
   {start: parseDate("2001-03-01"), end: parseDate("2001-11-01"), name: "Early 2000s Recession"},
   {start: parseDate("2007-12-01"), end: parseDate("2009-06-01"), name: "2008 Great Depression"},
 ]
@@ -45,7 +48,16 @@ d3.select(".buttons")
 
 // TODO: 
 function dataSwap(d) {
-  startDate = d.start;
+  oldstartDate = d.start;
+  startDate = new Date()
+  startDate.setDate(oldstartDate.getDate() + 120)
+  console.log("old start date", oldstartDate)
+  console.log(startDate)
+  // const today = new Date(2019, 2, 28)
+  // const finalDate = new Date(today)
+  // finalDate.setDate(today.getDate() + 3)
+  // console.log(finalDate)
+  
   endDate = d.end;
 
   // TODO: re-render the graph based on this new start and end date
@@ -125,7 +137,7 @@ function render(data, option, onMouseover, onMouseout) {
   const margin = {
     top: 50,
     bottom: 50,
-    left: 50,
+    left: 100,
     right: 50,
   };
 
@@ -142,7 +154,7 @@ function render(data, option, onMouseover, onMouseout) {
   //yScale
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d["value"])])
+    .domain(d3.extent(data, (d) => d["value"]))
     .nice()
     .range([height, 0]);
   
