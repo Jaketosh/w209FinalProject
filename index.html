@@ -1,33 +1,91 @@
 <html>
   <title>U-Shape vs V-Shape Recession</title>
   <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
   <body id="bodyMain">
     <script src="js/makeHeader.js"></script>
 
-    <h1>HomePage</h1>
-    <div class="card">
+    <!-- <h1>HomePage</h1> -->
+    <!-- <div class="card"> -->
       <h1>Major Indicators of the United States Economy of Historical Recessions</h1>
-      <div class="buttons"></div>
-      <div class="container chartContainer row justify-content-md-center">
-        <div id="gdpsvgContainer">
-          <tooltip></tooltip>
-        </div>
-        
-        <div id="sp500svgContainer">
-          <tooltip></tooltip>
-        </div>
-        
-        <div id="m2svgContainer">
-          <tooltip></tooltip>
+      
+      <h2>Introduction</h2>
+      <p>Please add an introduction</p>
+
+      <h3>What Is Gross Domestic Product (GDP) ?</h3>
+      <p>Gross domestic product (GDP) is the total monetary or market value of all the finished goods and services produced within a country's borders in a specific time period. As a broad measure of overall domestic production, it functions as a comprehensive scorecard of a given country&rsquo;s economic health. </p>
+
+      <h3>What is S&P500 ?</h3>
+      <p>The S&amp;P 500 is a stock market index that measures the stock performance of 500 large companies listed on stock exchanges in the United States. It is one of the most commonly followed equity indices, and many consider it to be one of the best representations of the U.S. stock market.</p>
+
+      <h3>What is M2 ? </h3>
+      <p> M2 is a measure of the money supply that includes cash, checking deposits, and easily convertible near money. M2 is closely watched as an indicator of money supply and future inflation, and as a target of central bank monetary policy. </p>
+
+      <h3>What is Unemployment Rate ?</h3>
+      <p>The unemployment rate is defined as the percentage of unemployed workers in the total labor force. Workers are considered unemployed if they currently do not work, despite the fact that they are able and willing to do so. The total labor force consists of all employed and unemployed people within an economy.</p>
+
+      <h3> What is Quantitative Easing (QE) ?</h3>
+      <p>Quantitative easing (QE) is a form of monetary policy used by central banks as a method of quickly increasing the domestic money supply and spurring economic activity.</p>
+
+      <h3>Try Below Interactions</h3>
+        <div>
+          <ul>
+            <li>Click one of below tag to see different historical recession. </li>
+            <li>Put mouseover one of the data point you interested, relevent data points on other three graphs will be highlighted as well. </li>
+          </ul>
+
         </div>
 
-        <div id="unemploymentsvgContainer">
-          <tooltip></tooltip>
-        </div>
+      
+      <div class="buttons"></div>
+      <div class="container-fluid chartContainer row justify-content-md-center">
+        <div class="row">
+          <div class="col-md-6" id="gdpsvgContainer">
+            <tooltip></tooltip>
+          </div>
+
+          <div class="col-md-6" id="testgdpsvgContainer">
+            <tooltip></tooltip>
+          </div>
+          
+          <div class="w-100"></div>
+          
+          <div class="col-md-6" id="sp500svgContainer">
+            <tooltip></tooltip>
+          </div>
+
+          <div class="col-md-6" id="testsp500svgContainer">
+            <tooltip></tooltip>
+          </div>
+          
+          <div class="w-100"></div>
+          
+          <div class="col-md-6" id="m2svgContainer">
+            <tooltip></tooltip>
+          </div>
+          
+          <div class="col-md-6" id="testm2svgContainer">
+            <tooltip></tooltip>
+          </div>
+
+          <div class="w-100"></div>
+
+          <div class="col-md-6" id="unemploymentsvgContainer">
+            <tooltip></tooltip>
+          </div>
+
+          <div class="col-md-6" id="testunemploymentsvgContainer">
+            <tooltip></tooltip>
+          </div>
         
+        </div>  
+      
       </div>
-    </div>
+
+      
+    <!-- </div>
+    </div> -->
   </body>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
