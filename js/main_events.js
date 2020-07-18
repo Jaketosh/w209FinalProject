@@ -57,7 +57,7 @@ var BalanceVis = function() {
 
     /** Define global constants. */
 
-    const SVG_WIDTH = 760;
+    const SVG_WIDTH = 1000;
 
     const SVG_HEIGHT = self.balanceHeight;
 
