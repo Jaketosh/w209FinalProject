@@ -93,6 +93,14 @@ h2.less {
 #navbar a {
     cursor: default;
     color: white;
+h2 {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #navbar .active a, #navbar a:hover {
@@ -143,4 +151,21 @@ h2.less {
 
 #balance_div, #balance_legend {
     height: 25vh;
+}
+.relativeContainer {
+  position: relative;
+}
+
+.mytooltip {
+  position: absolute;
+  margin-left: 20px;
+  text-align: left;
+  width: 200px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+  border-radius: 8px;
+  opacity: 0.5;
 }

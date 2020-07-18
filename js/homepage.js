@@ -1,37 +1,111 @@
-const startYear = new Date(2007, 0, 1);
-console.log("startYear", startYear);
+var startDateDisplay = new Date(1950, 10, 1);
+var endDateDisplay = new Date(2020, 6, 1);
+console.log("startDate", startDateDisplay)
+console.log("endDate", endDateDisplay)
+
+var startDateTest = new Date(2007, 10, 1);
+var endDateTest = new Date(2020, 6, 1);
 
 const titles = {
   gdp: "GDP",
   m2: "M2",
   unemployment: "Unemployment Rate (%)",
   sp500: "S&P 500",
+  
+  testgdp: "Test GDP",
+  testm2: "Test M2",
+  testunemployment: "Test Unemployment Rate (%)",
+  testsp500: "Test S&P 500",
 };
+
+var parseDate = d3.timeParse("%Y-%m-%d")
+
+const financialCrisis = [
+  // {start: parseDate("1948-11-01"), end: parseDate("1949-10-01"), name: ""},
+  // {start: parseDate("1953-07-01"), end: parseDate("1954-05-01"), name: ""},
+  // .... skips many. TODO: add 
+  {start: parseDate("1980-01-01"), end: parseDate("1980-07-01"), name: "1980 recession"},
+  {start: parseDate("1981-07-01"), end: parseDate("1982-11-01"), name: "1981–1982 recession"},
+  {start: parseDate("1990-07-01"), end: parseDate("1991-03-01"), name: "Early 1990s recession"},
+  {start: parseDate("2001-03-01"), end: parseDate("2001-11-01"), name: "Early 2000s Recession"},
+  {start: parseDate("2007-12-01"), end: parseDate("2009-06-01"), name: "2008 Great Depression"},
+  {start: parseDate("2020-02-01"), end: new Date(), name: "Covid Crisis"},
+  {start: parseDate("1947-01-01"), end: new Date(), name: "All"},
+]
+
+
+const qes = [
+  // ==== 2008 Financial Crisis
+  {start: parseDate("2008-12-01"), end: parseDate("2010-03-01")}, 
+  {start: parseDate("2010-11-01"), end: parseDate("2011-06-01")}, 
+  {start: parseDate("2012-09-01"), end: parseDate("2013-12-01")}, 
+
+  // ===== covid19
+  {start: parseDate("2012-09-01"), end: parseDate("2013-12-01")}, 
+  {start: parseDate("2020-06-01"), end: new Date()}, 
+]
+
+// ==================== Add button
+d3.select(".buttons")
+	  .selectAll("button")
+		.data(financialCrisis)
+    .enter()
+    .append("button")
+    .text(function(d) {return d.name})
+		.on("click", function(d) {
+      dataSwap(d);
+      // change color of the selected button
+      d3
+        .selectAll("button")
+        .style("background-color", "white");
+      this.style.backgroundColor = "steelblue";
+    })
+
+function dataSwap(d) {
+  // option1: plot graph 120 days before recession
+  let oldstartDate = new Date(d.start);
+  startDateDisplay = new Date(oldstartDate)
+  startDateDisplay.setDate(oldstartDate.getDate() - 180)
+  console.log("old start date", oldstartDate)
+  console.log("start date", startDateDisplay)
+  
+  // // option2: plot graph start from recession date
+  // startDate = d.start;
+  
+  endDateDisplay = d.end;
+
+  // TODO: re-render the graph based on this new start and end date
+  d3.selectAll("svg")
+    .remove();
+  draw();
+  draw("test")
+
+}
 
 // =================== Parse Data
 
-// parse: GDP, unemployment, M2
+// parse: unemployment, M2
 function parseData(data) {
   data = data.observations;
   data = data.map((d) => ({
-    date: new Date(d.date),
+    date: parseDate(d.date),
     value: +d.value,
   }));
   //include 2007 ~ current data
-  data = data.filter((d) => d.date >= startYear);
+  // data = data.filter((d) => (d.date >= startDate && d.date <= endDate));
 
   return data;
 }
 
-// parse S&P500 CSV
-function parseSP500(data) {
+// parse GDP and S&P500 CSV
+function parseCSV(data) {
   // data: Array of object [{}]
   data = data.map((d) => ({
     date: new Date(d["Date"]),
-    value: +d["Adj Close"],
+    value: +d["Value"],
   }));
 
-  data = data.filter((d) => d.date >= startYear);
+  // data = data.filter((d) => d.date >= startDate && d.date <= endDate);
 
   return data;
 }
@@ -43,12 +117,12 @@ class DataLoaderCSV {
     this.data = d3
       .csv(url)
       // .then((result) => console.log("S&P 500 data: ", result))
-      .then(parseSP500)
+      .then(parseCSV)
       // .then((result) => console.log("S&P 500 data: ", result));
   }
 }
 
-class DataLoader {
+class DataLoaderJson {
   constructor(url, id) {
     this.data = d3
       .json(url)
@@ -64,26 +138,25 @@ class DataLoader {
 }
 
 // =================== Render Function
-function render(data, id, onMouseover, onMouseout) {
+function render(data, option, onMouseover, onMouseout) {
   // topic is either "gpd", "unemployment", "m2"
+  // side could be left or right
+  const {id, isDotPlot} = option;
+  
   data = data.filter((d) => !Number.isNaN(d.value));
-  console.log(id, "data", data);
+  // console.log(id, "data", data);
 
-  const svgWidth = 600;
-  const svgHeight = 600;
+  const svgWidth = 800;
+  const svgHeight = 320;
   const margin = {
     top: 50,
     bottom: 50,
-    left: 50,
+    left: 100,
     right: 50,
   };
 
   const width = svgWidth - margin.left - margin.right;
   const height = svgHeight - margin.top - margin.bottom;
-
-  const smallDotSize = 0.5
-  const normalDotSize = 2.5
-  const bigDotSize = 5
 
   // xScale
   const xScale = d3
@@ -95,38 +168,79 @@ function render(data, id, onMouseover, onMouseout) {
   //yScale
   const yScale = d3
     .scaleLinear()
-    .domain([0, d3.max(data, (d) => d["value"])])
+    .domain(d3.extent(data, (d) => d["value"]))
     .nice()
     .range([height, 0]);
-
-  // console.log(id, "yScale domain", yScale.domain());
-  // console.log(
-  //   id,
-  //   "max value",
-  //   d3.max(data, (d) => d["value"])
-  // );
-
-  // line function
-  const line = d3
-    .line()
-    .x((d) => xScale(d["date"]))
-    .y((d) => yScale(d["value"]));
-
+  
   const svg = d3
-    .select(`#${id}svg`)
+    .select(`#${id}svgContainer`)
+    .classed("relativeContainer", true)
+    .classed("col-sm-6", true)
+    .classed("col-lg-6", true)
+    .classed("col-xl-6", true)
+    .append("svg")
+    .attr("id", `${id}svg`)
     .attr("width", svgWidth)
     .attr("height", svgHeight)
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  svg
-    .append("path")
-    .datum(data)
-    .attr("d", line)
-    .attr("fill", "none")
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 2)
-    .attr("stroke-array", 5);
+  // ============== line Plot
+  function LinePlot() {
+    const line = d3
+      .line()
+      .x((d) => xScale(d["date"]))
+      .y((d) => yScale(d["value"]));
+  
+    svg
+      .append("path")
+      .datum(data)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 2)
+      .attr("stroke-array", 5);
+      
+  }
+    
+  if (id !== "unemployment") {
+    LinePlot()
+  }
+    
+  // ========== Draw Dots Plot
+  const radiusScale = d3
+    .scaleLinear()
+    .domain(d3.extent(data, (d) => d["value"]))
+    .range([0.5, 10])
+
+  const smallDotSize = 0.5;
+  const normalDotSize = 2;
+  const bigDotSize = 7; 
+
+  const dotSize = (d, highlighted=false) => {
+    if (isDotPlot && highlighted){
+      return Math.max(radiusScale(d["value"]), bigDotSize);
+    } else if (isDotPlot) {
+      return radiusScale(d["value"]);
+    } else if (highlighted){
+      return data.length < 200 ? bigDotSize : bigDotSize - 2.5;
+    } else {
+      return data.length < 200 ? normalDotSize : smallDotSize;
+    }
+  };
+
+  const strokeStyle = isDotPlot ? "black" : "#69b3a2";
+  
+  const colorScale = d3.scaleSequential(d3.interpolateGreys)
+    .domain(d3.extent(data, d => d["value"]));
+  
+  const fillStyle = (d) => {
+    if (isDotPlot) {
+      return colorScale(d["value"]);
+    } else {
+      return "#69b3a2";
+    }
+  };
 
   const dotPlot = svg
     .append("g")
@@ -135,18 +249,26 @@ function render(data, id, onMouseover, onMouseout) {
     .join("circle")
     .attr("cx", (d) => xScale(d["date"]))
     .attr("cy", (d) => yScale(d["value"]))
-    .attr("r", data.length < 200 ? normalDotSize : smallDotSize)
-    .style("fill", "#69b3a2")
+    .attr("r", d => dotSize(d))
+    .style("fill", fillStyle)
+    .style("stroke", strokeStyle);
+    
 
   svg
     .append("g")
     .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(xScale));
+    .call(d3.axisBottom(xScale)
+          .tickFormat(d3.timeFormat("%Y-%b")))
+    .selectAll("text")	
+    .style("text-anchor", "end")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", "rotate(-65)");
 
   svg
     .append("text")
-    .attr("x", svgWidth / 2 - 50)
-    .attr("y", margin.top + height - 10)
+    .attr("x", svgWidth / 2 - 40)
+      .attr("y", margin.top + height - 5)
     .attr("font-family", "sans-serif")
     .attr("font-size", "10px")
     .attr("text-anchor", "middle")
@@ -158,6 +280,7 @@ function render(data, id, onMouseover, onMouseout) {
     .append("text")
     .attr("x", svgWidth / 2)
     .attr("y", margin.top - 50)
+    // .attr("y", (0 - margin.top)/2)
     .attr("font-family", "sans-serif")
     .attr("font-size", "20px")
     .attr("font-weight", "bold")
@@ -169,13 +292,16 @@ function render(data, id, onMouseover, onMouseout) {
   // Unemployment - every 3 month
   // M2 - every 7 days
   // Sp500 - everyone except weekend and holiday
+
+  // Purpose: if one point in one of the graphs is selected, 
+  // the corresponding point(s) in other graphs will also be highlighted with 
+  // bigger size and diff color.
   function highlight(di) {
     dotPlot
-      .attr("r", (dj) => (di.date.getMonth() === dj.date.getMonth() && 
-        di.date.getYear() === dj.date.getYear()) ? 
-        (data.length < 200 ? bigDotSize : bigDotSize - 2.5) : 
-        (data.length < 200 ? normalDotSize : smallDotSize)
-      )
+      .attr("r", (dj) => {
+        const highlighted = di.date.getMonth() === dj.date.getMonth() && di.date.getYear() === dj.date.getYear();
+        return dotSize(dj, highlighted);
+      })
       .style("fill", (dj) => (di.date.getMonth() === dj.date.getMonth() && 
         di.date.getYear() === dj.date.getYear()) ? 
         "red" : "#69b3a2"
@@ -183,9 +309,12 @@ function render(data, id, onMouseover, onMouseout) {
   }
 
   function unhighlight() {
-    dotPlot.attr("r", data.length < 200 ? normalDotSize : smallDotSize)
-    .style("fill", "#69b3a2")
-  }
+    dotPlot
+      .attr("r", d => dotSize(d))
+      .style("fill", fillStyle)
+    
+    tooltip.style("visibility", "hidden");
+  };
 
   const formatDate = d3.timeFormat("%B %d, %Y");
   const formatValue = d3.format(".0f")
@@ -193,24 +322,49 @@ function render(data, id, onMouseover, onMouseout) {
     var val = (d.value - data[0].value) / data[0].value * 100;
     val =  d3.format(".2f")(val);
     return val;
-  }
+  };
   
   var tooltip = d3
     .select(`#${id}svgContainer`)
-    .attr("class", "Container")
     .select("tooltip")
-    .attr("class", "tooltip")
+    .classed("mytooltip", true)
     .style("visibility", "hidden");
   
   function showTooltip(d) {
     tooltip
       .style("visibility", "visible")
-      // .html("Date: " + formatDate(d.date) + "<br/>"  + "Value: " + formatValue(d.value))
       .html(formatDate(d.date) + ": " + formatValue(d.value) + "<br /> Change Since Start: " + calculatePercentageChange(d) + "%")
-      // .html(`<span class="dateSpan">xxxx</span>`)
       .style("left", `${event.layerX + 10}px`)             
       .style("top", `${event.layerY - 10}px`);
   }
+
+  // ============== QE rectangles
+  function drawRectQE(qe) {
+    const startX = xScale(qe.start)
+    const widthX = xScale(qe.end) - startX
+    
+    svg
+      .append("rect")
+      .attr("class", "qe")
+      .attr("x", startX)
+      .attr("y", 10)
+      .attr("width", widthX)
+      .attr("height", height - 10)
+      .attr("fill", "#d3d3d3")
+      .style("opacity", 0.5)
+    
+    svg.append("text")
+      .text("QE")
+      .attr("x", startX + 5)
+      .attr("y", 30)
+      .style("opacity", 0.7)
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "20px")
+  }
+
+  qes.forEach(drawRectQE)
+
+  
 
   // ============== public object 
   return {
@@ -222,65 +376,109 @@ function render(data, id, onMouseover, onMouseout) {
 }
 
 
-// ============= Call the Functions ===========================
+// ============= Call the Function to plot everything ===========================
 
-const urlGDP = "./data/gdp.json";
+// ===== load and parse data =============
+// const urlGDP = "./data/gdp.json";
+const urlGDP = "./data/gdp_v2.csv";
 const urlUnemployment = "./data/unemployment.json";
 const urlM2 = "./data/m2.json";
 const urlSP500 = "./data/sp500.csv";
 
 //// ============= load data
-const loaderGDP = new DataLoader(
+const loaderGDP = new DataLoaderCSV(
   urlGDP,
   "gdp",
 );
 
-const loaderUnemployment = new DataLoader(
+const loaderUnemployment = new DataLoaderJson(
   urlUnemployment,
   "unemployment",
 );
 
-const loaderM2 = new DataLoader(urlM2, "m2");
+const loaderM2 = new DataLoaderJson(urlM2, "m2");
 
 const loaderSP500 = new DataLoaderCSV(
   urlSP500,
   "sp500",
 );
 
-// ======= Render all using data
-Promise.all([loaderGDP.data, loaderUnemployment.data, loaderM2.data, loaderSP500.data]).then((results) => {
-  const [dataGDP, dataUnemployment, dataM2, dataSP500] = results;
-  const renderGDP = render(dataGDP, "gdp");
-  const renderUnemployment = render(dataUnemployment, "unemployment");
-  const renderM2 = render(dataM2, "m2");
-  const renderSP500 = render(dataSP500, "sp500");
+// ===== draw the plots =============
 
-  // ========== handleMouseover and handleMourout
-  function handleMouseover(di, renderObject) {
-    renderGDP.highlight(di)
-    renderUnemployment.highlight(di)
-    renderM2.highlight(di)
-    renderSP500.highlight(di)
-    renderObject.showTooltip(di)
+function draw(test_version) {
+
+  
+  // ============ update test option
+  let test = "";
+  if (test_version) {
+    test = test_version;
   }
+  
+  // ======= Render all using data
+  Promise.all([loaderGDP.data, loaderUnemployment.data, loaderM2.data, loaderSP500.data]).then((results) => {
 
-  function handleMouseout() {
-    renderGDP.unhighlight()
-    renderUnemployment.unhighlight()
-    renderM2.unhighlight()
-    renderSP500.unhighlight()
-  }
+    // for (let data of results) {
+    //   console.log(data)
+    // }
 
-  function setMouseEvents(renderObject) {
-    renderObject.dotPlot
-      .on("mouseover", di => handleMouseover(di, renderObject))
-      .on("mouseout", handleMouseout);
-  }
+    console.log("results", results)
 
-  // ========== setMouseevent for all four plots
-  setMouseEvents(renderGDP);
-  setMouseEvents(renderUnemployment);
-  setMouseEvents(renderM2);
-  setMouseEvents(renderSP500);
+    // let data
+    for (let i = 0; i < results.length; i++) {
+      if (test_version) {
+        console.log("before test_version", results[i])
+        results[i] = results[i].filter((d) => (d.date >= startDateTest && d.date <= endDateTest));
+        console.log("after test_version", results[i])
+      } else {
+        // console.log("before normal_version", data)
+        results[i] = results[i].filter((d) => (d.date >= startDateDisplay && d.date <= endDateDisplay));
+        
+        // data = results[i]
+        // results[i] = data.filter((d) => {d.date >= startDateDisplay && d.date <= endDateDisplay});
+        
+        // console.log("normal_version", data)
+      }
+    }
 
-})
+    console.log("results after", results)
+    
+    const [dataGDP, dataUnemployment, dataM2, dataSP500] = results;
+
+    const renderGDP = render(dataGDP, {id: `${test}gdp`});
+    const renderM2 = render(dataM2, {id: `${test}m2`});
+    const renderSP500 = render(dataSP500, {id: `${test}sp500`});
+    const renderUnemployment = render(dataUnemployment, {id: `${test}unemployment`, isDotPlot:true});
+  
+    // ========== handleMouseover and handleMourout
+    function handleMouseover(di, renderObject) {
+      renderGDP.highlight(di)
+      renderUnemployment.highlight(di)
+      renderM2.highlight(di)
+      renderSP500.highlight(di)
+      renderObject.showTooltip(di)
+    }
+  
+    function handleMouseout() {
+      renderGDP.unhighlight()
+      renderUnemployment.unhighlight()
+      renderM2.unhighlight()
+      renderSP500.unhighlight()
+    }
+  
+    function setMouseEvents(renderObject) {
+      renderObject.dotPlot
+        .on("mouseover", di => handleMouseover(di, renderObject))
+        .on("mouseout", handleMouseout);
+    }
+  
+    // ========== setMouseevent for all four plots
+    setMouseEvents(renderGDP);
+    setMouseEvents(renderUnemployment);
+    setMouseEvents(renderM2);
+    setMouseEvents(renderSP500);
+  
+  })
+}
+
+draw()
+draw("test")
