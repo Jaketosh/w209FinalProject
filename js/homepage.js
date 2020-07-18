@@ -146,8 +146,8 @@ function render(data, option, onMouseover, onMouseout) {
   data = data.filter((d) => !Number.isNaN(d.value));
   // console.log(id, "data", data);
 
-  const svgWidth = 800;
-  const svgHeight = 320;
+  const svgWidth = 650;
+  const svgHeight = 275;
   const margin = {
     top: 50,
     bottom: 50,
