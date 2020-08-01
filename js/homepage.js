@@ -1,10 +1,13 @@
 var startDateDisplay = new Date(1950, 10, 1);
 var endDateDisplay = new Date(2020, 6, 1);
+
 console.log("startDate", startDateDisplay)
 console.log("endDate", endDateDisplay)
 
-var startDateTest = new Date(2007, 10, 1);
-var endDateTest = new Date(2020, 6, 1);
+// var startDateTest = new Date(2007, 10, 1);
+// var endDateTest = new Date(2020, 6, 1);
+var startDateTest = new Date(2007, 12, 1);
+var endDateTest = new Date(2009, 6, 1);
 
 const titles = {
   gdp: "GDP",
@@ -28,21 +31,21 @@ const financialCrisis = [
   {start: parseDate("1981-07-01"), end: parseDate("1982-11-01"), name: "1981–1982 recession"},
   {start: parseDate("1990-07-01"), end: parseDate("1991-03-01"), name: "Early 1990s recession"},
   {start: parseDate("2001-03-01"), end: parseDate("2001-11-01"), name: "Early 2000s Recession"},
-  {start: parseDate("2007-12-01"), end: parseDate("2009-06-01"), name: "2008 Great Depression"},
-  {start: parseDate("2020-02-01"), end: new Date(), name: "Covid Crisis"},
+  // {start: parseDate("2007-12-01"), end: parseDate("2009-06-01"), name: "2008 Great Depression"},
+  // {start: parseDate("2020-02-01"), end: new Date(), name: "Covid Crisis"},
   {start: parseDate("1947-01-01"), end: new Date(), name: "All"},
 ]
 
 
 const qes = [
   // ==== 2008 Financial Crisis
-  {start: parseDate("2008-12-01"), end: parseDate("2010-03-01")}, 
-  {start: parseDate("2010-11-01"), end: parseDate("2011-06-01")}, 
-  {start: parseDate("2012-09-01"), end: parseDate("2013-12-01")}, 
+  // {start: parseDate("2008-12-01"), end: parseDate("2010-03-01")}, 
+  // {start: parseDate("2010-11-01"), end: parseDate("2011-06-01")}, 
+  // {start: parseDate("2012-09-01"), end: parseDate("2013-12-01")}, 
 
-  // ===== covid19
-  {start: parseDate("2012-09-01"), end: parseDate("2013-12-01")}, 
-  {start: parseDate("2020-06-01"), end: new Date()}, 
+  // // ===== covid19
+  // {start: parseDate("2012-09-01"), end: parseDate("2013-12-01")}, 
+  // {start: parseDate("2020-06-01"), end: new Date()}, 
 ]
 
 // ==================== Add button
@@ -252,7 +255,7 @@ function render(data, option, onMouseover, onMouseout) {
     .attr("r", d => dotSize(d))
     .style("fill", fillStyle)
     .style("stroke", strokeStyle);
-    
+
 
   svg
     .append("g")
@@ -264,15 +267,6 @@ function render(data, option, onMouseover, onMouseout) {
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
     .attr("transform", "rotate(-65)");
-
-  svg
-    .append("text")
-    .attr("x", svgWidth / 2 - 40)
-      .attr("y", margin.top + height - 5)
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "10px")
-    .attr("text-anchor", "middle")
-    .text("Year");
 
   svg.append("g").call(d3.axisLeft(yScale));
 
@@ -363,7 +357,6 @@ function render(data, option, onMouseover, onMouseout) {
   }
 
   qes.forEach(drawRectQE)
-
   
 
   // ============== public object 
