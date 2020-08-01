@@ -1,34 +1,319 @@
-<html>
-  <title>U-Shape vs V-Shape Recession</title>
-  <link rel="stylesheet" type="text/css" href="css/main.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
 
-  <body id="bodyMain">
-    <script src="js/makeHeader.js"></script>
+<head>
 
-    <!-- <h1>HomePage</h1> -->
-    <!-- <div class="card"> -->
-      <h1>Major Indicators of the United States Economy of Historical Recessions</h1>
-      
-      <h2>Introduction</h2>
-      <p>Please add an introduction</p>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-      <h3>What Is Gross Domestic Product (GDP) ?</h3>
-      <p>Gross domestic product (GDP) is the total monetary or market value of all the finished goods and services produced within a country's borders in a specific time period. As a broad measure of overall domestic production, it functions as a comprehensive scorecard of a given country&rsquo;s economic health. </p>
+    <title>Are we still in a recession?</title>
 
-      <h3>What is S&P500 ?</h3>
-      <p>The S&amp;P 500 is a stock market index that measures the stock performance of 500 large companies listed on stock exchanges in the United States. It is one of the most commonly followed equity indices, and many consider it to be one of the best representations of the U.S. stock market.</p>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="vendor/openpage-scroll/js/jquery.onepage-scroll.js"></script>
+    <link href='vendor/openpage-scroll/css/onepage-scroll.css' rel="stylesheet">
 
-      <h3>What is M2 ? </h3>
-      <p> M2 is a measure of the money supply that includes cash, checking deposits, and easily convertible near money. M2 is closely watched as an indicator of money supply and future inflation, and as a target of central bank monetary policy. </p>
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/1.18.0/d3-annotation.min.js"></script>
 
-      <h3>What is Unemployment Rate ?</h3>
-      <p>The unemployment rate is defined as the percentage of unemployed workers in the total labor force. Workers are considered unemployed if they currently do not work, despite the fact that they are able and willing to do so. The total labor force consists of all employed and unemployed people within an economy.</p>
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-      <h3> What is Quantitative Easing (QE) ?</h3>
-      <p>Quantitative easing (QE) is a form of monetary policy used by central banks as a method of quickly increasing the domestic money supply and spurring economic activity.</p>
+    <!-- Theme CSS -->
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-      <h3>Try Below Interactions</h3>
+    <!-- Custom scripts -->
+    <script src="js/shared.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/main_events.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="js/d3.button.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
+    <script type="module" src="js/util.js"></script>
+    <script type="module" src="js/homepage.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+</head>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- INTIAL SETUP ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <a class="navbar-brand">Recessions</a>
+        </div>
+        <div class="container">
+
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a>Home</a></li>
+                    <li><a>Preface</a></li>
+                    <li><a>Ch. 1</a></li>
+                    <li><a>Recessionary Curves</a></li>
+                    <li><a>Ch. 2</a></li>
+                    <li><a>Recessionary Measures</a></li>
+                    <li><a>Ch. 3</a></li>
+                    <li><a>Alt. Recessionary Measures</a></li>
+                    <li><a>Summary</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- TITLE PAGE ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+    <div class="main">
+
+        <section class="page1" id = "intro">
+            <div class='chapter' id="intro">
+                <div class='container'>
+                        <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Introduction</h2>
+
+                        </div>
+                    </div>
+
+
+                                            <div class="col-md-4">
+                            <h4 class="service-heading">An introduction to recessions</h4>
+                        </br>
+                            <p class="text-muted">"Business cycles are a type of fluctuation found in the aggregate economic activity of nations…a cycle consists of expansions occurring at about the same time in many economic activities, followed by similarly general recessions…this sequence of changes is recurrent but not periodic." That description, from the 1946 magnum opus by Arthur F. Burns and Wesley C. Mitchell, Measuring Business Cycles, remains definitive today.</p>
+                        
+                                                  
+                                                                            </br>
+
+                                    
+                                                    
+
+                            <p class="text-muted">In essence, business cycles are marked by the alternation of the phases of expansion and contraction in aggregate economic activity, and the comovement among economic variables in each phase of the cycle. Aggregate economic activity is represented by not only real (i.e., inflation-adjusted) GDP—a measure of aggregate output—but also the aggregate measures of industrial production, employment, income, and sales, which are the key coincident economic indicators used for the official determination of U.S. business cycle peak and trough dates. </p>
+
+                        </br>
+                        <p class="text-muted">A popular misconception is that a recession is defined simply as two consecutive quarters of decline in real GDP. Notably, the 1960–61 and 2001 recessions did not include two successive quarterly declines in real GDP.  A recession is actually a specific sort of vicious cycle, with cascading declines in output, employment, income, and sales that feed back into a further drop in output, spreading rapidly from industry to industry and region to region. This domino effect is key to the diffusion of recessionary weakness across the economy, driving the comovement among these coincident economic indicators and the persistence of the recession. </p>
+                        </div>
+
+ 
+                        <div class="col-lg-8">
+                            
+                     
+                    
+<style>
+div.frame{
+    width:50%;
+    height:100%;
+    border:solid #000 0px;
+}
+</style>
+
+<div class="frame">
+
+
+
+<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0XmLZQvj2lJ69poiRosnaibJiBkuowdI4C_qKXNG50F5TM2s&s" >
+
+
+
+
+<p class="codepen" data-height="350" data-theme-id="light" data-default-tab="result" data-user="elstanton-berkeley" data-slug-hash="NWxJXRa" style="height: 350px; box-sizing: flex; align-items: center; justify-content: center; border: 0px solid; margin: 1em 0; padding: 1em;" >
+ 
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+                </div>
+            </div>
+
+        
+   </div>
+        </section>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- PREFACE ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page2">
+            <div class='chapter' id='preface'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Preface</h2>
+
+                        </div>
+                    </div>
+
+
+                                            <div class="col-md-4">
+                            <h4 class="service-heading">Recessions are common</h4>
+                        </br>
+                            <p class="text-muted">The history of recessions in the United States shows that they are a natural, though painful, part of the business cycle. The National Bureau of Economic Research determines when a recession starts and ends.</p>
+                        
+                                                  
+                                                                            </br>
+
+
+                                    
+                            <h4 class="service-heading">There are 17 noteworthy historical recessions</h4>
+                                                    </br>
+
+                            <p class="text-muted">The Bureau of Economic Analysis measures the gross domestic product that defines recessions. The Bureau of Labor Statistics reports on the unemployment rate. Unemployment often peaks after the recession ends because it is a lagging economic indicator. Most employers wait until they are sure the economy is back on its feet again before hiring permanent employees.</p>
+                        </div>
+
+ 
+                        <div class="col-lg-8">
+                            
+                     
+                    
+<style>
+div.frame{
+    width:80%;
+    height:100%;
+    border:solid #000 0px;
+}
+</style>
+
+<div class="frame"></div>
+<div class='tableauPlaceholder' id='viz1595573952070' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalRecessions&#47;HistoricalRecessions&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='HistoricalRecessions&#47;HistoricalRecessions' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalRecessions&#47;HistoricalRecessions&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1595573952070');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+
+                </div>
+            </div>
+
+        
+   </div>
+   </section>
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- TYPES OF CURVE INTRO ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page3 chapter-intro">
+            <div class='chapter' id='fed'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Chapter I</h2>
+                            <h3 class="section-subheading">An Introduction to different types of recessionary curves</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8 text-center">
+                            <p class="text-muted">
+                                Recession shapes are used by economists to describe different types of recessions. There is no specific academic theory or classification system for recession shapes; rather the terminology is used as an informal shorthand to characterize recessions and their recoveries.
+                            </p>
+                            </br>
+                            <p class="text-muted">
+                               The most commonly used terms are V-shaped, U-shaped, W-shaped, and L-shaped recessions. The shapes take their names from the approximate shape economic data make in graphs during recessions. The letters can also be applied referring to the recoveries (for example, a "V-shaped recovery").
+                            </p>
+
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- CURVE VISUAL ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page4">
+            <div class='chapter' id='fed-vis'>
+                <div class="container" class="col-xs-9">
+                    <div class="row">
+                        <h2 class="section-heading less">Types of Recessionary Curves</h2>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- STANDARD RECESSIONARY METRICS INTRO  ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+
+        <section class="page5 chapter-intro">
+            <div class='chapter' id='stock'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading">Chapter II</h2>
+                            <h3 class="section-subheading">Standard Recessionary Indicators</h3>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8 text-center">
+                                           </br>
+
+                               <p class="text-muted"> <strong> Gross Domestic Product (GDP) </strong>
+Gross Domestic Product (GDP) is the monetary value of all finished goods and services made within a country during a specific period. GDP provides an economic snapshot of a country, used to estimate the size of an economy and growth rate. GDP can be calculated in three ways, using expenditures, production, or incomes.
+                                </p>
+                            </br>
+
+                               <p class="text-muted"> <strong> S&P500 </strong>
+The S&P 500 or Standard & Poor's 500 Index is a market-capitalization-weighted index of the 500 largest U.S. publicly traded companies. The index is widely regarded as the best gauge of large-cap U.S. equities. Other common U.S. stock market benchmarks include the Dow Jones Industrial Average or Dow 30 and the Russell 2000 Index, which represents the small-cap index.
+                                </p>
+                            </br>
+                               <p class="text-muted"> <strong> M2 </strong>
+M2 is a calculation of the money supply that includes all elements of M1 as well as "near money." M1 includes cash and checking deposits, while near money refers to savings deposits, money market securities, mutual funds, and other time deposits. These assets are less liquid than M1 and not as suitable as exchange mediums, but they can be quickly converted into cash or checking deposits.
+                                </p>
+                            </br>
+                               <p class="text-muted"> <strong> Gross Domestic Product (GDP) </strong>
+Gross Domestic Product (GDP) is the monetary value of all finished goods and services made within a country during a specific period. GDP provides an economic snapshot of a country, used to estimate the size of an economy and growth rate. GDP can be calculated in three ways, using expenditures, production, or incomes.
+                                </p>
+                            </br>
+
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- STANDARD RECESSIONARY METRICS VISUAL  ----------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page6 stock-bond">
+            <div class='chapter' id='stcok-vis'>
+                <div class='container'>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2 class="section-heading">Standard Recessionary Metrics</h2>
+
+
+      <strong>Try Below Interactions</strong>
         <div>
           <ul>
             <li>Click one of below tag to see different historical recession. </li>
@@ -45,53 +330,149 @@
             <tooltip></tooltip>
           </div>
 
-          <div class="col-md-6" id="testgdpsvgContainer">
+    
+          <div class="col-sm-6" id="testgdpsvgContainer">
             <tooltip></tooltip>
-          </div>
+          </div> 
           
-          <div class="w-100"></div>
+        
           
-          <div class="col-md-6" id="sp500svgContainer">
+          <div class="col-sm-6" id="sp500svgContainer">
             <tooltip></tooltip>
           </div>
 
-          <div class="col-md-6" id="testsp500svgContainer">
+           <div class="col-sm-6" id="testsp500svgContainer">
+            <tooltip></tooltip>
+          </div> 
+          
+          
+          <div class="col-sm-6" id="m2svgContainer">
             <tooltip></tooltip>
           </div>
           
-          <div class="w-100"></div>
-          
-          <div class="col-md-6" id="m2svgContainer">
+           <div class="col-sm-6" id="testm2svgContainer">
             <tooltip></tooltip>
-          </div>
-          
-          <div class="col-md-6" id="testm2svgContainer">
+          </div> 
+
+    
+
+          <div class="col-sm-6" id="unemploymentsvgContainer">
             <tooltip></tooltip>
           </div>
 
-          <div class="w-100"></div>
-
-          <div class="col-md-6" id="unemploymentsvgContainer">
+            <div class="col-sm-6" id="testunemploymentsvgContainer">
             <tooltip></tooltip>
-          </div>
-
-          <div class="col-md-6" id="testunemploymentsvgContainer">
-            <tooltip></tooltip>
-          </div>
+          </div> 
         
         </div>  
       
       </div>
 
-      
-    <!-- </div>
-    </div> -->
-  </body>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
-  <script src="https://d3js.org/d3.v5.js"></script>
-  <script src="js/d3.button.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
-  <script type="module" src="js/util.js"></script>
-  <script type="module" src="js/homepage.js"></script>
+
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- ALT RECESSIONARY METRICS INTRO  ----------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+        <section class="page7 stock-bond">
+            <div class='chapter' id='bond-vis'>
+                <div class='container'>
+                    <div class="row">
+                        <div class = "col-lg-12 text-center">
+                        <h2 class="section-heading">Chapter III</h2>
+                        <h3 class="section-subheading">What other things can we look at? </h3>
+                        <p class="text-muted">ERIN TO FILL IN</p>
+                    </div>
+                   
+                </div>
+            </div>
+        </section>
+
+
+<!---------------------------------------------------------------------------------------------------------------------->
+<!-- ALT RECESSIONARY METRICS VISUAL  ---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+
+
+        <section class="page8">
+            <div class='chapter' id='life'>
+                <div class='container'>
+                    <div class="row">
+                        <div class = "col-lg-12">
+                            <h2 class="section-heading">Alternative Measures</h2>
+                            
+                        </div>
+
+                        <p> KEVIN TO FILL IN </p>
+                    </div>
+                   
+                    </div>
+                </div>
+        </section>
+
+ 
+ <!---------------------------------------------------------------------------------------------------------------------->
+<!-- FINAL SUMMARY  ---------------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------------------------------------------------->
+
+        <section class="page9 summary">
+            <div class='chapter' id='summary'>
+                <div class='container'>
+                    <div class="row ">
+                        <div class="col-lg-12 text-center ">
+                            <h2 class="section-heading ">Summary</h2>
+                            <p class="text-muted">ARE WE STILL IN A RECESSION?  ERIN TO FILL IN</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2 class="section-heading text-center">Sources</h2>
+                            <p><span class="underline bold text-center ">Works Cited</span></p>
+                            <p class="text-muted">1. 90% Increase in Stocks from <a href="https://finance.yahoo.com/news/the-fed-caused-93--of-the-entire-stock-market-s-move-since-2008--analysis-194426366.html">Fed actions: Brian Barnier, principal at ValueBridge Advisors (2017)</a></p>
+                            <p class="text-muted">2. Bureau of Labor Statistics, U.S. Department of Labor, The Economics Daily, Labor force participation projected to fall for people under age 55 and rise for older age groups on the Internet at <a href="https://www.bls.gov/opub/ted/2014/ted_20140106.html">here</a>
+                            (visited August 17, 2017).</p>
+                            <p><span class="underline bold text-center ">Data Sources</span></p>
+                            <p class="text-muted">1. Balance sheet data: <a href="https://www.federalreserve.gov/">Federal Reserve</a></p>
+                            <p class="text-muted">2. Stock and Bond Prices: Courtesy of Colfondos</p>
+                            <p class="text-muted">3. Income-Expense Data: <a href="https://www.bls.gov/data/">Bureau of Labor Statistics</a></p>
+                            <p class="text-muted">4. Debt Data: <a href="https://www.newyorkfed.org/">New York Fed</a></p>
+                            <p><span class="underline bold text-center">Packages used: </span></p>
+                            <p class="text-muted">D3 Library</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <h2 class="section-heading text-center">About Us</h2>
+                            <p><span class="underline bold ">Authors:</span></p>
+                            <p class="text-muted">Kevin Kory, Jacob Tosh, Erin Stanton, Sonya Chen</p>
+                            <p><span class="underline bold ">Purpose:</span></p>
+                            <p class="text-muted">Create an interactive textbook to allow users to answer the question, 'Are we still in a recession' for themselves.</p>
+                            <p><span class="underline bold ">Uses:</span></p>
+                            <p class="text-muted">Those with a basic economic and financial background but who are not overly familiar with recessions.</p>
+                            <p><span class="underline bold ">For Further Questions or Comments:</span></p>
+                            <p class="text-muted">jacobtosh@berkeley.edu</p>
+                            <p><span class="underline bold ">Final Version:</span></p>
+                            <p class="text-muted">7/12/2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+</body>
+
 </html>
+  
+
+
+
+

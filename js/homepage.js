@@ -61,7 +61,7 @@ d3.select(".buttons")
       d3
         .selectAll("button")
         .style("background-color", "white");
-      this.style.backgroundColor = "steelblue";
+      this.style.backgroundColor = "#4DAAA7";
     })
 
 function dataSwap(d) {
@@ -149,12 +149,12 @@ function render(data, option, onMouseover, onMouseout) {
   data = data.filter((d) => !Number.isNaN(d.value));
   // console.log(id, "data", data);
 
-  const svgWidth = 800;
-  const svgHeight = 320;
+  const svgWidth = 650;
+  const svgHeight = 300;
   const margin = {
     top: 50,
     bottom: 50,
-    left: 100,
+    left: 75,
     right: 50,
   };
 
