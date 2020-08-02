@@ -54,6 +54,10 @@ d3.select(".buttons")
 		.data(financialCrisis)
     .enter()
     .append("button")
+    .classed("btn", true)
+    .classed("btn-success", true)
+    .classed("btn-secondary", false)
+    .style("margin", "0 3px")
     .text(function(d) {return d.name})
 		.on("click", function(d) {
       dataSwap(d);
@@ -65,9 +69,10 @@ d3.select(".buttons")
     })
 
 function dataSwap(d) {
-  // option1: plot graph 120 days before recession
   let oldstartDate = new Date(d.start);
   startDateDisplay = new Date(oldstartDate)
+
+  // option1: plot graph 120 days before recession
   startDateDisplay.setDate(oldstartDate.getDate() - 180)
   console.log("old start date", oldstartDate)
   console.log("start date", startDateDisplay)
@@ -77,7 +82,14 @@ function dataSwap(d) {
   
   endDateDisplay = d.end;
 
-  // TODO: re-render the graph based on this new start and end date
+  // update info card
+  console.log("update left info card title")
+  console.log("data", d)
+  d3.select("#leftinfocard")
+    .select("h5")
+    .text(d.name);
+
+  // re-render the graph based on this new start and end date
   d3.selectAll("svg")
     .remove();
   draw();
@@ -149,7 +161,7 @@ function render(data, option, onMouseover, onMouseout) {
   data = data.filter((d) => !Number.isNaN(d.value));
   // console.log(id, "data", data);
 
-  const svgWidth = 650;
+  const svgWidth = 550;
   const svgHeight = 300;
   const margin = {
     top: 50,
@@ -178,9 +190,6 @@ function render(data, option, onMouseover, onMouseout) {
   const svg = d3
     .select(`#${id}svgContainer`)
     .classed("relativeContainer", true)
-    .classed("col-sm-6", true)
-    .classed("col-lg-6", true)
-    .classed("col-xl-6", true)
     .append("svg")
     .attr("id", `${id}svg`)
     .attr("width", svgWidth)
@@ -399,6 +408,7 @@ const loaderSP500 = new DataLoaderCSV(
 // ===== draw the plots =============
 
 function draw(test_version) {
+  console.log('calling draw...')
 
   
   // ============ update test option
@@ -416,24 +426,13 @@ function draw(test_version) {
 
     console.log("results", results)
 
-    // let data
     for (let i = 0; i < results.length; i++) {
       if (test_version) {
-        console.log("before test_version", results[i])
         results[i] = results[i].filter((d) => (d.date >= startDateTest && d.date <= endDateTest));
-        console.log("after test_version", results[i])
       } else {
-        // console.log("before normal_version", data)
         results[i] = results[i].filter((d) => (d.date >= startDateDisplay && d.date <= endDateDisplay));
-        
-        // data = results[i]
-        // results[i] = data.filter((d) => {d.date >= startDateDisplay && d.date <= endDateDisplay});
-        
-        // console.log("normal_version", data)
       }
     }
-
-    console.log("results after", results)
     
     const [dataGDP, dataUnemployment, dataM2, dataSP500] = results;
 
