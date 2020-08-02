@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Are we still in a recession?</title>
+    <title>When will the current recession end?</title>
 
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -43,8 +43,8 @@
     <script type="module" src="js/homepage.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
 </head>
 
@@ -90,67 +90,103 @@
 
     <div class="main">
 
+
+
         <section class="page1" id = "intro">
             <div class='chapter' id="intro">
-                <div class='container'>
-                        <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h2 class="section-heading">Introduction</h2>
-
-                        </div>
-                    </div>
-
-
-                                            <div class="col-md-4">
-                            <h4 class="service-heading">An introduction to recessions</h4>
-                        </br>
-                            <p class="text-muted">"Business cycles are a type of fluctuation found in the aggregate economic activity of nations…a cycle consists of expansions occurring at about the same time in many economic activities, followed by similarly general recessions…this sequence of changes is recurrent but not periodic." That description, from the 1946 magnum opus by Arthur F. Burns and Wesley C. Mitchell, Measuring Business Cycles, remains definitive today.</p>
-                        
-                                                  
-                                                                            </br>
-
-                                    
-                                                    
-
-                            <p class="text-muted">In essence, business cycles are marked by the alternation of the phases of expansion and contraction in aggregate economic activity, and the comovement among economic variables in each phase of the cycle. Aggregate economic activity is represented by not only real (i.e., inflation-adjusted) GDP—a measure of aggregate output—but also the aggregate measures of industrial production, employment, income, and sales, which are the key coincident economic indicators used for the official determination of U.S. business cycle peak and trough dates. </p>
-
-                        </br>
-                        <p class="text-muted">A popular misconception is that a recession is defined simply as two consecutive quarters of decline in real GDP. Notably, the 1960–61 and 2001 recessions did not include two successive quarterly declines in real GDP.  A recession is actually a specific sort of vicious cycle, with cascading declines in output, employment, income, and sales that feed back into a further drop in output, spreading rapidly from industry to industry and region to region. This domino effect is key to the diffusion of recessionary weakness across the economy, driving the comovement among these coincident economic indicators and the persistence of the recession. </p>
-                        </div>
-
- 
-                        <div class="col-lg-8">
-                            
-                     
-                    
-<style>
-div.frame{
-    width:50%;
-    height:100%;
-    border:solid #000 0px;
-}
-</style>
-
-<div class="frame">
-
-
-
-<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0XmLZQvj2lJ69poiRosnaibJiBkuowdI4C_qKXNG50F5TM2s&s" >
-
-
-
-
-<p class="codepen" data-height="350" data-theme-id="light" data-default-tab="result" data-user="elstanton-berkeley" data-slug-hash="NWxJXRa" style="height: 350px; box-sizing: flex; align-items: center; justify-content: center; border: 0px solid; margin: 1em 0; padding: 1em;" >
- 
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
-
+                
+            
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Introduction to the Business Cycle</h2>
                 </div>
-            </div>
+
+                        <div class='container'>
+                            <div class="col-lg-6">
+                            
+                            <!-- WHERE MY IMAGE GOES-->
+
+
+                            <style>
+                                .button {
+                                  background-color: #4DAAA7; /* Wesbite Green */
+                                  border: none;
+                                  color: white;
+                                  padding: 10px 15px;
+                                  text-align: center;
+                                  text-decoration: none;
+                                  display: inline-block;
+                                  font-size: 16px;
+                                  margin: 4px 2px;
+                                  cursor: pointer;
+                                  -webkit-transition-duration: 0.4s; /* Safari */
+                                  transition-duration: 0.4s;
+                                }
+
+                                .button2:hover {
+                                  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+                                }
+                            </style>
+                                
+                                <button class="button button2" onclick="plusDivs(-1)"> BACK </button>
+                                <button class="button button2" onclick="plusDivs(+1)"> NEXT </button>   
+                         
+                                </br>
+                                </br>
+                                
+                                <img class="mySlides" src="imgs/School2.png">
+                                <img class="mySlides" src="imgs/School3.png">
+                                <img class="mySlides" src="imgs/School4new.png">
+                                    
+                                 
+                                
+                                <script>
+                                    var slideIndex = 1;
+                                    showDivs(slideIndex);
+
+                                    function plusDivs(n) {
+                                      showDivs(slideIndex += n);
+                                    }
+
+                                    function showDivs(n) {
+                                      var i;
+                                      var x = document.getElementsByClassName("mySlides");
+                                      if (n > x.length) {slideIndex = 1}
+                                      if (n < 1) {slideIndex = x.length} ;
+                                      for (i = 0; i < x.length; i++) {
+                                        x[i].style.display = "none";
+                                      }
+                                      x[slideIndex-1].style.display = "block";
+                                    }
+                                </script>
+
+                            <!-- WHERE MY IMAGE GOES-->
+
+                            </div>
+
+
+                            <div class="col-lg-6" style = "padding-left:100px;">
+                            </br>
+                            </br>
+                            </br>
+                                    <h4 class="service-heading">What to rememeber about Business Cycles</h4>
+                                    </br>
+                                    <li>Business cycles are cyclical and continuous in nature.</li>
+                                    </br>   
+                                    <li>Recessions are no longer defined as two consecutive quarters of declining GDP but are declared by the NBER.</li>
+                                    </br>   
+                                    <li>The recovery session is typically marked by improvments across multiple indicators including GDP, unemployement and income. </li>
+                                    </br>                
+              
+
+   
+                            </div>
+
+                        </div>
 
         
-   </div>
+            </div>
         </section>
+    
 
 <!---------------------------------------------------------------------------------------------------------------------->
 <!-- PREFACE ----------------------------------------------------------------------------------------------------------->
