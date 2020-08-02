@@ -115,12 +115,13 @@ function bubbleChart() {
       .style('text-anchor', 'middle')
       .style('font-size', 10)
       .text(d => d.id)
+
       
 
 
     // set simulation's nodes to our newly created nodes array
     // simulation starts running automatically once nodes are set
-    simulation.nodes(nodes)
+    simulation.nodes(nodes) 
       .on('tick', ticked)
       .restart();
   }
