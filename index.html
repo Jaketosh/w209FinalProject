@@ -42,6 +42,7 @@
     <script type="module" src="js/util.js"></script>
     <script type="module" src="js/homepage.js"></script>
 
+
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -200,6 +201,127 @@
                             <h2 class="section-heading">Preface</h2>
                         </div>
                 
+                        <div class="col-lg-12">
+                            
+                            <!-- WHERE MY IMAGE GOES-->
+
+
+                            <script>
+
+                            
+                                dataset = {
+                                    "children": [{"Shortname":"Ideologie","Name":"Ablehnung der Ideologie","Count":44,"Color":"#4e527f"},
+                                        {"Shortname":"Partei-Aufträge","Name":"Ablehnung Partei-Aufträge","Count":29,"Color":"#4e527f"},
+                                        {"Shortname":"Kirchenaustritt","Name":"Zwang zum Kirchenaustritt","Count":21,"Color":"#4e527f"},
+                                        {"Shortname":"Jugendweihe","Name":"Ablehnung der Jugendweihe","Count":36,"Color":"#4e527f"},           {"Shortname":"Spitzelauftrag","Name":"Spitzelaufträge gegen Geistliche","Count":14,"Color":"#4e527f"},
+                                        {"Shortname":"Zeugen Jehovas","Name":"Bekenntnis zu Zeugen Jehovas","Count":27,"Color":"#4e527f"},
+                                        {"Shortname":"Erziehungssystem","Name":"Ablehnung Erziehungssystem","Count":48,"Color":"#4e527f"},
+                                        {"Shortname":"Studium","Name":"Nicht-Zulassung zum Studium","Count":41,"Color":"#4e527f"},
+                                        {"Shortname":"Reiseverbot", "Name":"Keine Reisegenehmigung / legale Umsiedlung","Count":68,"Color":"#4e527f"},           {"Shortname":"Spitzelauftrag","Name":"Spitzelaufträge","Count":135,"Color":"#4db9bf"},            {"Shortname":"Parteiauftrag","Name":"Parteiaufträge","Count":84,"Color":"#4db9bf"},
+                                        {"Shortname":"Militärdienst","Name":"Armee- oder VoPo-Eintritt","Count":59,"Color":"#4db9bf"},           {"Shortname":"Arbeitseinsatz","Name":"Arbeitseinsatz (Jugendliche)","Count":12,"Color":"#4db9bf"},
+                                        {"Shortname":"Politische Aktivität","Name":"Aufforderung zu pol. Betätigung","Count":528,"Color":"#4db9bf"}]
+                                };
+
+                                var diameter = 800;
+                                var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+                                var bubble = d3.pack(dataset)
+                                    .size([diameter, diameter])
+                                    .padding(1.5);
+
+                                var svg = d3.select("body")
+                                    .append("svg")
+                                    .attr("width", diameter)
+                                    .attr("height", diameter)
+                                    .attr("class", "bubble");
+
+                                var nodes = d3.hierarchy(dataset)
+                                    .sum(function(d) { return d.Count; });
+
+                                var node = svg.selectAll(".node")
+                                    .data(bubble(nodes).descendants())
+                                    .enter()
+                                    .filter(function(d){
+                                        return  !d.children
+                                    })
+                                    .append("g")
+                                    .attr("class", "node")
+                                    .attr("transform", function(d) {
+                                        return "translate(" + d.x + "," + d.y + ")";
+                                    });
+
+                                node.append("title")
+                                    .text(function(d) {
+                                        return d.data.Shortname + ": " + d.data.Count;
+                                    });
+
+
+
+                                node.append("circle")
+                                    .attr("r", function(d) {
+                                        return d.r;
+                                    })
+                                    .attr("class", "circle")
+                                    .style("fill", function(d) {
+                                        return d.data.Color;
+                                    })
+
+
+                                node.append("text")
+                                    .attr("dy", ".2em")
+                                    .style("text-anchor", "middle")
+                                    .text(function(d) {
+                                        return d.data.Shortname.substring(0, d.r / 3);
+                                    })
+                                    .attr("font-family",  "Arial")
+                                    .attr("font-size", function(d){
+                                        return d.r/5;
+                                    })
+                                    .attr("fill", "white")
+                                    .attr("inline-size", 80)
+                                    .attr("class", "circletxt");
+
+                                node.append("text")
+                                    .attr("dy", "1.3em")
+                                    .style("text-anchor", "middle")
+                                    .text(function(d) {
+                                        return d.data.Count;
+                                    })
+                                    .attr("font-family",  "Arial")
+                                    .attr("font-size", function(d){
+                                        return d.r/5;
+                                    })
+                                    .attr("fill", "white")
+                                    .attr("inline-size", 80)
+                                    .attr("class", "circletxt");
+
+
+                               node.on("mouseover", function (d) {
+                                    var g = d3.select(this); // The node
+                                    var htmltxt =  d.data.Name;
+                                    var htmlcount = d.data.Count;
+
+                                    var div = d3.select("body").append("div")
+                                        .attr('pointer-events', 'none')
+                                        .attr("class", "infolayer")
+                                        .html(htmltxt+"<br><br>"+htmlcount+" Nennungen")
+                                        .style("left", (d.x + 20 + "px"))
+                                        .style("top", (d.y +"px"));
+                                });
+
+                                node.on("mouseout", function (d) {
+                                    d3.selectAll(".infolayer").remove();
+                                        
+                                });
+
+                                d3.select(self.frameElement)
+                                    .style("height", diameter + "px");
+
+
+                             </script>   
+
+                            
+                        </div>
 
 
                         <div class="col-md-4">
@@ -210,13 +332,6 @@
                             <h4 class="service-heading">There are 17 noteworthy historical recessions</h4>
                             </br>
                             <p class="text-muted">The Bureau of Economic Analysis measures the gross domestic product that defines recessions. The Bureau of Labor Statistics reports on the unemployment rate. Unemployment often peaks after the recession ends because it is a lagging economic indicator. Most employers wait until they are sure the economy is back on its feet again before hiring permanent employees.</p>
-                        </div>
-
- 
-                        <div class="col-lg-8">
-                            
-                            <!-- WHERE MY IMAGE GOES-->
-
                         </div>
                 </div>
 
