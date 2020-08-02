@@ -261,9 +261,10 @@ function render(data, option, onMouseover, onMouseout) {
       
   }
     
-  if (id !== "unemployment") {
-    LinePlot()
-  }
+  // if (id !== "unemployment") {
+  //   LinePlot()
+  // }
+  LinePlot()
     
   // ========== Draw Dots Plot
   const radiusScale = d3
@@ -380,11 +381,14 @@ function render(data, option, onMouseover, onMouseout) {
     .style("visibility", "hidden");
   
   function showTooltip(d) {
+    console.log("mouse position", d3.mouse(this));
     tooltip
       .style("visibility", "visible")
       .html(formatDate(d.date) + ": " + formatValue(d.value) + "<br /> Change Since Start: " + calculatePercentageChange(d) + "%")
-      .style("left", `${event.layerX + 10}px`)             
+      .style("left", `${event.layerX + 10}px`)
       .style("top", `${event.layerY - 10}px`);
+      // .style("top",  (d3.mouse(this)[1]) + "px")
+      // .style("left", (d3.mouse(this)[0]) + "px");
   }
 
   // ============== QE rectangles
@@ -454,7 +458,6 @@ const loaderSP500 = new DataLoaderCSV(
 // ===== draw the plots =============
 
 function draw(test_version) {
-  console.log('calling draw...')
 
   
   // ============ update test option
