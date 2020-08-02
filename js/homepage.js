@@ -27,14 +27,34 @@ const financialCrisis = [
   // {start: parseDate("1948-11-01"), end: parseDate("1949-10-01"), name: ""},
   // {start: parseDate("1953-07-01"), end: parseDate("1954-05-01"), name: ""},
   // .... skips many. TODO: add 
-  {start: parseDate("1980-01-01"), end: parseDate("1980-07-01"), name: "1980 recession"},
-  {start: parseDate("1981-07-01"), end: parseDate("1982-11-01"), name: "1981–1982 recession"},
-  {start: parseDate("1990-07-01"), end: parseDate("1991-03-01"), name: "Early 1990s recession"},
-  {start: parseDate("2001-03-01"), end: parseDate("2001-11-01"), name: "Early 2000s Recession"},
-  // {start: parseDate("2007-12-01"), end: parseDate("2009-06-01"), name: "2008 Great Depression"},
+  {start: parseDate("1980-01-01"), end: parseDate("1980-07-01"), name: "1980 recession", info: [
+    "GDP Change: -2.2%",
+    "Recession Period: Jan 1980 - Jul 1980",
+    "Recession Duration: 6 months",
+    ]},
+  {start: parseDate("1981-07-01"), end: parseDate("1982-11-01"), name: "1981–1982 recession", info: [
+    "GDP Change: -2.7%",
+    "Recession Period: Jul 1981 - Nov 1982",
+    "Recession Duration: 1 year",
+    ]},
+  {start: parseDate("1990-07-01"), end: parseDate("1991-03-01"), name: "Early 1990s recession", info: [
+    "GDP Change: -1.4%",
+    "Recession Period: Jul 1990 - Mar 1991",
+    "Recession Duration: 8 months",
+    ]},
+  {start: parseDate("2001-03-01"), end: parseDate("2001-11-01"), name: "Early 2000s Recession", info: [
+    "GDP Change: -0.3%",
+    "Recession Period: Mar 2001 - Nov 2001",
+    "Recession Duration: 8 months",
+    ]},
+  {start: parseDate("2007-12-01"), end: parseDate("2009-06-01"), name: "2008 Great Depression", info: [
+    "GDP Change: -5.1%",
+    "Recession Period: Dec 2007 ~ Jun 2009",
+    "Recession Duration: 1 Year 6 months",
+    ]},
   // {start: parseDate("2020-02-01"), end: new Date(), name: "Covid Crisis"},
-  {start: parseDate("1947-01-01"), end: new Date(), name: "All"},
-]
+  {start: parseDate("1947-01-01"), end: new Date(), name: "All Data Available: 1947 ~ 2020"},
+]  
 
 
 const qes = [
@@ -54,20 +74,25 @@ d3.select(".buttons")
 		.data(financialCrisis)
     .enter()
     .append("button")
+    .classed("btn", true)
+    .classed("btn-success", true)
+    .classed("btn-secondary", false)
+    .style("margin", "2px 3px")
     .text(function(d) {return d.name})
 		.on("click", function(d) {
       dataSwap(d);
       // change color of the selected button
       d3
         .selectAll("button")
-        .style("background-color", "white");
-      this.style.backgroundColor = "#4DAAA7";
+        .classed("btn-secondary", d2 => d2 === d ? false : true)
+        .classed("btn-success", d2 => d2 === d ? true : false);
     })
 
 function dataSwap(d) {
-  // option1: plot graph 120 days before recession
   let oldstartDate = new Date(d.start);
   startDateDisplay = new Date(oldstartDate)
+
+  // option1: plot graph 120 days before recession
   startDateDisplay.setDate(oldstartDate.getDate() - 180)
   console.log("old start date", oldstartDate)
   console.log("start date", startDateDisplay)
@@ -77,7 +102,40 @@ function dataSwap(d) {
   
   endDateDisplay = d.end;
 
-  // TODO: re-render the graph based on this new start and end date
+  // update info card
+  d3.select("#leftinfocard")
+    .select("h5")
+    .text(d.name);
+
+  var recessionInfo = [
+    "GDP Drop: 3%",
+    "Recession Period: Jan 2008 ~ Feb 2009",
+    "Recession Duration: 8 months",
+    ];
+
+  function getInfo(dataPoint) {
+    var item;
+    for (item of financialCrisis) {
+      if (item.name == dataPoint.name) {
+        return item.info;
+      }
+    }
+  };
+  
+  d3.select("#leftinfocard")
+    .select("p")
+    .selectAll("ul")
+    .remove()
+  
+    d3.select("#leftinfocard")
+    .select("p")
+    .append("ul")
+    .selectAll("li")
+    .data(getInfo(d))
+    .join("li")
+    .html(String);
+
+  // re-render the graph based on this new start and end date
   d3.selectAll("svg")
     .remove();
   draw();
@@ -149,7 +207,7 @@ function render(data, option, onMouseover, onMouseout) {
   data = data.filter((d) => !Number.isNaN(d.value));
   // console.log(id, "data", data);
 
-  const svgWidth = 650;
+  const svgWidth = 550;
   const svgHeight = 300;
   const margin = {
     top: 50,
@@ -178,9 +236,6 @@ function render(data, option, onMouseover, onMouseout) {
   const svg = d3
     .select(`#${id}svgContainer`)
     .classed("relativeContainer", true)
-    .classed("col-sm-6", true)
-    .classed("col-lg-6", true)
-    .classed("col-xl-6", true)
     .append("svg")
     .attr("id", `${id}svg`)
     .attr("width", svgWidth)
@@ -399,6 +454,7 @@ const loaderSP500 = new DataLoaderCSV(
 // ===== draw the plots =============
 
 function draw(test_version) {
+  console.log('calling draw...')
 
   
   // ============ update test option
@@ -408,37 +464,31 @@ function draw(test_version) {
   }
   
   // ======= Render all using data
-  Promise.all([loaderGDP.data, loaderUnemployment.data, loaderM2.data, loaderSP500.data]).then((results) => {
-
-    // for (let data of results) {
-    //   console.log(data)
-    // }
-
+  Promise.all([
+    loaderGDP.data, 
+    loaderUnemployment.data, 
+    // loaderM2.data, 
+    loaderSP500.data,
+  ]).then((results) => {
     console.log("results", results)
 
-    // let data
     for (let i = 0; i < results.length; i++) {
       if (test_version) {
-        console.log("before test_version", results[i])
         results[i] = results[i].filter((d) => (d.date >= startDateTest && d.date <= endDateTest));
-        console.log("after test_version", results[i])
       } else {
-        // console.log("before normal_version", data)
         results[i] = results[i].filter((d) => (d.date >= startDateDisplay && d.date <= endDateDisplay));
-        
-        // data = results[i]
-        // results[i] = data.filter((d) => {d.date >= startDateDisplay && d.date <= endDateDisplay});
-        
-        // console.log("normal_version", data)
       }
     }
-
-    console.log("results after", results)
     
-    const [dataGDP, dataUnemployment, dataM2, dataSP500] = results;
+    const [
+      dataGDP, 
+      dataUnemployment, 
+      // dataM2, 
+      dataSP500,
+    ] = results;
 
     const renderGDP = render(dataGDP, {id: `${test}gdp`});
-    const renderM2 = render(dataM2, {id: `${test}m2`});
+    // const renderM2 = render(dataM2, {id: `${test}m2`});
     const renderSP500 = render(dataSP500, {id: `${test}sp500`});
     const renderUnemployment = render(dataUnemployment, {id: `${test}unemployment`, isDotPlot:true});
   
@@ -446,7 +496,7 @@ function draw(test_version) {
     function handleMouseover(di, renderObject) {
       renderGDP.highlight(di)
       renderUnemployment.highlight(di)
-      renderM2.highlight(di)
+      // renderM2.highlight(di)
       renderSP500.highlight(di)
       renderObject.showTooltip(di)
     }
@@ -454,7 +504,7 @@ function draw(test_version) {
     function handleMouseout() {
       renderGDP.unhighlight()
       renderUnemployment.unhighlight()
-      renderM2.unhighlight()
+      // renderM2.unhighlight()
       renderSP500.unhighlight()
     }
   
@@ -467,7 +517,7 @@ function draw(test_version) {
     // ========== setMouseevent for all four plots
     setMouseEvents(renderGDP);
     setMouseEvents(renderUnemployment);
-    setMouseEvents(renderM2);
+    // setMouseEvents(renderM2);
     setMouseEvents(renderSP500);
   
   })
