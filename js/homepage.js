@@ -64,8 +64,8 @@ d3.select(".buttons")
       // change color of the selected button
       d3
         .selectAll("button")
-        .style("background-color", "white");
-      this.style.backgroundColor = "#4DAAA7";
+        .classed("btn-secondary", d2 => d2 === d ? false : true)
+        .classed("btn-success", d2 => d2 === d ? true : false);
     })
 
 function dataSwap(d) {
