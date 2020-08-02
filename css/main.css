@@ -7,15 +7,18 @@ body {
 }
 
 section h2.section-heading {
-    padding-top: 40px;
+    padding-top: 50px;
     font-size: 30px;
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: -1px;
+    font-style: bold;
+
     margin-top: 0;
     margin-bottom: 10px;
 }
 
 section h3.section-subheading {
-    font-size: 15px;
+    font-size: 12px;
     font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: none;
     font-style: italic;
@@ -163,3 +166,36 @@ h2.less {
   border-radius: 8px;
   opacity: 0.5;
 }
+
+
+A:link {text-decoration: none;}
+A:visited {text-decoration: none;}
+A:hover {text-decoration: none;}
+A:active {text-decoration: none;}
+
+
+
+
+.circle {
+    cursor:pointer;
+}
+
+.circletxt{
+    pointer-events:none;
+}
+
+.infolayer {
+    background-color: rgba(57,52,63, 0.7);
+    pointer-events: none;
+    position:absolute;
+    color:#fff;
+    width:200px;
+    height:80px;
+    padding:10px;
+    animation-name:fade-in;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in;
+    animation-iteration-count: 1;
+}
+
+

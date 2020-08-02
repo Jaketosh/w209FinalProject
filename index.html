@@ -8,18 +8,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Are we still in a recession?</title>
+    <title>When will the current recession end?</title>
 
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="vendor/openpage-scroll/js/jquery.onepage-scroll.js"></script>
     <link href='vendor/openpage-scroll/css/onepage-scroll.css' rel="stylesheet">
 
     <!-- D3 -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/1.18.0/d3-annotation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="js/d3.button.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
+    
 
     <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -30,21 +31,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
     <!-- Custom scripts -->
-    <script src="js/shared.js"></script>
+
     <script src="js/main.js"></script>
-    <script src="js/main_events.js"></script>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
-    <script src="https://d3js.org/d3.v5.js"></script>
-    <script src="js/d3.button.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.js"></script>
-    <script type="module" src="js/util.js"></script>
     <script type="module" src="js/homepage.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
 
 </head>
 
@@ -70,7 +61,7 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a>Home</a></li>
+                    <li class="active"><a>Intro</a></li>
                     <li><a>Preface</a></li>
                     <li><a>Ch. 1</a></li>
                     <li><a>Recessionary Curves</a></li>
@@ -89,68 +80,34 @@
 <!---------------------------------------------------------------------------------------------------------------------->
 
     <div class="main">
-
         <section class="page1" id = "intro">
-            <div class='chapter' id="intro">
+            <div class='chapter' id="intro">    
                 <div class='container'>
-                        <div class="row">
                         <div class="col-lg-12 text-center">
                             <h2 class="section-heading">Introduction</h2>
-
                         </div>
-                    </div>
+                
+                        <div class="col-lg-6">
 
+                           <h4 class="service-heading">Historical Recession Examples</h4>
 
-                                            <div class="col-md-4">
-                            <h4 class="service-heading">An introduction to recessions</h4>
-                        </br>
-                            <p class="text-muted">"Business cycles are a type of fluctuation found in the aggregate economic activity of nations…a cycle consists of expansions occurring at about the same time in many economic activities, followed by similarly general recessions…this sequence of changes is recurrent but not periodic." That description, from the 1946 magnum opus by Arthur F. Burns and Wesley C. Mitchell, Measuring Business Cycles, remains definitive today.</p>
-                        
-                                                  
-                                                                            </br>
-
-                                    
-                                                    
-
-                            <p class="text-muted">In essence, business cycles are marked by the alternation of the phases of expansion and contraction in aggregate economic activity, and the comovement among economic variables in each phase of the cycle. Aggregate economic activity is represented by not only real (i.e., inflation-adjusted) GDP—a measure of aggregate output—but also the aggregate measures of industrial production, employment, income, and sales, which are the key coincident economic indicators used for the official determination of U.S. business cycle peak and trough dates. </p>
-
-                        </br>
-                        <p class="text-muted">A popular misconception is that a recession is defined simply as two consecutive quarters of decline in real GDP. Notably, the 1960–61 and 2001 recessions did not include two successive quarterly declines in real GDP.  A recession is actually a specific sort of vicious cycle, with cascading declines in output, employment, income, and sales that feed back into a further drop in output, spreading rapidly from industry to industry and region to region. This domino effect is key to the diffusion of recessionary weakness across the economy, driving the comovement among these coincident economic indicators and the persistence of the recession. </p>
+                           <p class="text-muted" size="8px">Size: Decline in GDP, Color: Increase in Unemployment</p>
+                           <object type="text/html" data="js/Preface.html" width="575" height="575"></object>
                         </div>
 
- 
-                        <div class="col-lg-8">
-                            
-                     
-                    
-<style>
-div.frame{
-    width:50%;
-    height:100%;
-    border:solid #000 0px;
-}
-</style>
-
-<div class="frame">
-
-
-
-<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0XmLZQvj2lJ69poiRosnaibJiBkuowdI4C_qKXNG50F5TM2s&s" >
-
-
-
-
-<p class="codepen" data-height="350" data-theme-id="light" data-default-tab="result" data-user="elstanton-berkeley" data-slug-hash="NWxJXRa" style="height: 350px; box-sizing: flex; align-items: center; justify-content: center; border: 0px solid; margin: 1em 0; padding: 1em;" >
- 
-</p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
-
-                </div>
+                        <div class="col-lg-6" style = "padding-left:100px;">
+                            <h4 class="service-heading">Recessions are common</h4>
+                            </br>
+                            <p class="text-muted">The history of recessions in the United States shows that they are a natural, though painful, part of the business cycle. </p>
+                            </br>        
+                            <h4 class="service-heading">There are 17 noteworthy historical recessions</h4>
+                            </br>
+                            <p class="text-muted">The NBER defines a recession as a significant decline in economic activity spread across the economy, lasting more than a few months, normally visible in real GDP, real income, employment, industrial production, and wholesale-retail sales.</p>
+                        </div>
+                </div>         
             </div>
-
-        
-   </div>
         </section>
+    
 
 <!---------------------------------------------------------------------------------------------------------------------->
 <!-- PREFACE ----------------------------------------------------------------------------------------------------------->
@@ -160,52 +117,101 @@ div.frame{
         <section class="page2">
             <div class='chapter' id='preface'>
                 <div class='container'>
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h2 class="section-heading">Preface</h2>
+                        <div class='container'>
+                            <div class="col-lg-12 text-center">
+                                <h2 class="section-heading">Preface</h2>
+                            </div>
 
-                        </div>
-                    </div>
-
-
-                                            <div class="col-md-4">
-                            <h4 class="service-heading">Recessions are common</h4>
-                        </br>
-                            <p class="text-muted">The history of recessions in the United States shows that they are a natural, though painful, part of the business cycle. The National Bureau of Economic Research determines when a recession starts and ends.</p>
-                        
-                                                  
-                                                                            </br>
-
-
-                                    
-                            <h4 class="service-heading">There are 17 noteworthy historical recessions</h4>
-                                                    </br>
-
-                            <p class="text-muted">The Bureau of Economic Analysis measures the gross domestic product that defines recessions. The Bureau of Labor Statistics reports on the unemployment rate. Unemployment often peaks after the recession ends because it is a lagging economic indicator. Most employers wait until they are sure the economy is back on its feet again before hiring permanent employees.</p>
-                        </div>
-
- 
-                        <div class="col-lg-8">
+                            <div class="col-lg-6">
                             
-                     
-                    
-<style>
-div.frame{
-    width:80%;
-    height:100%;
-    border:solid #000 0px;
-}
-</style>
+                            <!-- WHERE MY IMAGE GOES-->
 
-<div class="frame"></div>
-<div class='tableauPlaceholder' id='viz1595573952070' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalRecessions&#47;HistoricalRecessions&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='HistoricalRecessions&#47;HistoricalRecessions' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Hi&#47;HistoricalRecessions&#47;HistoricalRecessions&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1595573952070');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 
+                            <style>
+                                .button {
+                                  background-color: #4DAAA7; /* Wesbite Green */
+                                  border: none;
+                                  color: white;
+                                  padding: 10px 15px;
+                                  text-align: center;
+                                  text-decoration: none;
+                                  display: inline-block;
+                                  font-size: 16px;
+                                  margin: 4px 2px;
+                                  cursor: pointer;
+                                  -webkit-transition-duration: 0.4s; /* Safari */
+                                  transition-duration: 0.4s;
+                                }
+
+                                .button2:hover {
+                                  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+                                }
+                            </style>
+                                
+                                <button class="button button2" onclick="plusDivs(-1)"> BACK </button>
+                                <button class="button button2" onclick="plusDivs(+1)"> NEXT </button>   
+                         
+                                </br>
+                                </br>
+                                
+                                <img class="mySlides" src="imgs/NewSchool1.png">
+                                <img class="mySlides" src="imgs/NewSchool2.png">
+                                <img class="mySlides" src="imgs/NewSchool3.png">
+                                    
+                                 
+                                
+                                <script>
+                                    var slideIndex = 1;
+                                    showDivs(slideIndex);
+
+                                    function plusDivs(n) {
+                                      showDivs(slideIndex += n);
+                                    }
+
+                                    function showDivs(n) {
+                                      var i;
+                                      var x = document.getElementsByClassName("mySlides");
+                                      if (n > x.length) {slideIndex = 1}
+                                      if (n < 1) {slideIndex = x.length} ;
+                                      for (i = 0; i < x.length; i++) {
+                                        x[i].style.display = "none";
+                                      }
+                                      x[slideIndex-1].style.display = "block";
+                                    }
+                                </script>
+
+                            <!-- WHERE MY IMAGE GOES-->
+
+                            </div>
+
+
+                            <div class="col-lg-6" style = "padding-left:100px;">
+                            </br>
+                            </br>
+                            </br>
+                                    <h4 class="service-heading">Business cycles are cyclical and continuous in nature.</h4>
+                                    </br>
+                                    <p class="text-muted">While the image has clear delinitations between each phase, in reality these slowly transition over time.</p>
+                                    </br>   
+
+                                    <h4 class="service-heading">Recessions are no longer defined as two consecutive quarters of declining GDP but are declared by the NBER.</h4>
+                                    </br>   
+                                    <p class="text-muted">The NBER defines a recession as a significant decline in economic activity spread across the economy, lasting more than a few months, normally visible in real GDP, real income, employment, industrial production, and wholesale-retail sales. </p>
+                                    </br>    
+                                    <h4 class="service-heading">Economic recovery following a recession sees a sustained period of improving business activity.</h4>
+                                    </br>   
+                                    <p class="text-muted">Normally, during an economic recovery, gross domestic product (GDP) grows, incomes rise, and unemployment falls and as the economy rebounds. </p>
+                                    </br>                 
+                            </div>
+
+   
                 </div>
-            </div>
 
         
-   </div>
-   </section>
+            </div>
+        </section>
+
+        
 <!---------------------------------------------------------------------------------------------------------------------->
 <!-- TYPES OF CURVE INTRO ----------------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------------------------->
