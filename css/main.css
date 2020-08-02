@@ -7,15 +7,18 @@ body {
 }
 
 section h2.section-heading {
-    padding-top: 40px;
+    padding-top: 50px;
     font-size: 30px;
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: -1px;
+    font-style: bold;
+
     margin-top: 0;
     margin-bottom: 10px;
 }
 
 section h3.section-subheading {
-    font-size: 15px;
+    font-size: 12px;
     font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: none;
     font-style: italic;
