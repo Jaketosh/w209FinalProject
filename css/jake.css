@@ -1,0 +1,42 @@
+  .jakeh4{
+    text-align: center;
+  }
+  .jakeh2{
+    text-align: center;
+  }
+
+  .xAxisLabel, .yAxisLabel{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .hoverBox{
+    fill: #252525;
+    fill-opacity: 0.85;
+    
+}
+.hoverText{
+    white-space: nowrap;
+    fill: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.chartExplaination{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+fieldset{
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+#last{
+  margin-bottom:10%;
+}
+
+.hoverExplain{
+
+  font-style: italic;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-left: 50px;
+
+}
