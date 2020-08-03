@@ -103,7 +103,7 @@
 
                            <li>The larger bubbles indicate a larger decline in GDP</li>
                            <li>The darker color indicates a sharper increase in unemployment.</li>
-                           <object type="text/html" data="js/Preface.html" width="575" height="575"></object>
+                           <object type="text/html" data="Preface.html" width="575" height="575"></object>
                         </div>
 
                         <div class="col-lg-6" style = "padding-left:100px;">
@@ -266,13 +266,26 @@
 <!---------------------------------------------------------------------------------------------------------------------->
 <!-- CURVE VISUAL ----------------------------------------------------------------------------------------------------------->
 <!---------------------------------------------------------------------------------------------------------------------->
-
+        <link href="css/jake.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
         <section class="page4">
             <div class='chapter' id='fed-vis1'>
-                <div class="container" class="col-xs-9">
-                    <div class="row">
-                        <h2 class="section-heading less">Types of Recessionary Curves</h2>
-                        <object type="text/html" data="jake_V.html" width="1300" height="800"></object>
+                <div class="container">
+                    <div class="row" >
+                        <div class="col-lg-12 text-center">
+                            <h2 class="section-heading less">Types of Recessionary Curves</h2>
+                            
+                            <div id = vHolder></div>
+                            <script> 
+                            $(function(){
+                            $("#vHolder").load("jake_V.html", function(){
+                                
+                                $.getScript("js/jake/jake_V.js");
+                            }); 
+                            });
+                            </script>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -280,10 +293,19 @@
 
         <section class="page4_2">
             <div class='chapter' id='fed-vis2'>
-                <div class="container" class="col-xs-9">
+                <div class="container" class="col-lg-12 text-center">
                     <div class="row">
                         <h2 class="section-heading less"></h2>
-                        <object type="text/html" data="jake_U.html" width="1300" height="800"></object>
+                                                    
+                        <div id = uHolder></div>
+                        <script> 
+                        $(function(){
+                        $("#uHolder").load("jake_U.html", function(){
+                            $.getScript("js/jake/jake_U.js");
+                        }); 
+                        });
+                        </script>
+                        
                     </div>
                 </div>
             </div>
@@ -291,10 +313,19 @@
 
         <section class="page4_3">
             <div class='chapter' id='fed-vis3'>
-                <div class="container" class="col-xs-9">
+                <div class="container" class="col-lg-12 text-center">
                     <div class="row">
                         <h2 class="section-heading less"></h2>
-                        <object type="text/html" data="jake_W.html" width="1300" height="800"></object>
+                                                    
+                        <div id = wHolder></div>
+                        <script> 
+                        $(function(){
+                        $("#wHolder").load("jake_W.html", function(){
+                            $.getScript("js/jake/jake_W.js");
+                        }); 
+                        });
+                        </script>
+                        
                     </div>
                 </div>
             </div>
@@ -302,10 +333,19 @@
 
         <section class="page4_4">
             <div class='chapter' id='fed-vis4'>
-                <div class="container" class="col-xs-9">
+                <div class="container" class="col-lg-12 text-center">
                     <div class="row">
                         <h2 class="section-heading less"></h2>
-                        <object type="text/html" data="jake_L.html" width="1300" height="800"></object>
+                                                    
+                        <div id = lHolder></div>
+                        <script> 
+                        $(function(){
+                        $("#lHolder").load("jake_L.html", function(){
+                            $.getScript("js/jake/jake_L.js");
+                        }); 
+                        });
+                        </script>
+                        
                     </div>
                 </div>
             </div>
@@ -313,10 +353,19 @@
 
         <section class="page4_5">
             <div class='chapter' id='fed-vis5'>
-                <div class="container" class="col-xs-9">
+                <div class="container" class="col-lg-12 text-center">
                     <div class="row">
                         <h2 class="section-heading less"></h2>
-                        <object type="text/html" data="jake_compare.html" width="1300" height="800"></object>
+                                                    
+                        <div id = compareHolder></div>
+                        <script> 
+                        $(function(){
+                        $("#compareHolder").load("jake_compare.html", function(){
+                            $.getScript("js/jake/jake_Compare.js");
+                        }); 
+                        });
+                        </script>
+                        
                     </div>
                 </div>
             </div>
@@ -372,7 +421,7 @@ Unemployment is measured in order to determine the unemployment rate. The rate i
 
         <section class="page6 stock-bond">
           <div class='chapter' id='stock-vis'>
-            <div class='container' style="max-height: 100vh; overflow: auto;">
+            <div class='container' id="SonyaContainer" style="max-height: 100vh; overflow: auto;">
                 <div class="row">
 									<h2 class="section-heading" style="display: inline-block;">Standard Recessionary Metrics</h2>
 									<button

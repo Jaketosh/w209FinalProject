@@ -134,11 +134,13 @@ function dataSwap(d) {
     .append("ul")
     .selectAll("li")
     .data(getInfo(d))
-    .join("li")
+    .enter()
+    .append("li")
     .html(String);
 
   // re-render the graph based on this new start and end date
-  d3.selectAll("svg")
+  d3.select("#SonyaContainer")
+    .selectAll("svg")
     .remove();
   draw();
   draw("test")
@@ -335,7 +337,8 @@ function render(data, option, onMouseover, onMouseout) {
     .append("g")
     .selectAll("dot")
     .data(data)
-    .join("circle")
+    .enter()
+    .append("circle")
     .attr("cx", (d) => xScale(d["date"]))
     .attr("cy", (d) => yScale(d["value"]))
     .attr("r", d => dotSize(d))
