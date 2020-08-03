@@ -79,6 +79,7 @@ d3.select(".buttons")
     .classed("btn-success", true)
     .classed("btn-secondary", false)
     .style("margin", "2px 3px")
+    .style("font-size", "12px")
     .text(function(d) {return d.name})
 		.on("click", function(d) {
       dataSwap(d);
