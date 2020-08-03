@@ -381,6 +381,7 @@ Unemployment is measured in order to determine the unemployment rate. The rate i
 											title="Try interactions"
 											data-content="1. Click one of below tag to see different historical recession. <br/><br/> 2. Put mouseover one of the data point you interested, relevent data points on other three graphs will be highlighted as well."
 											data-placement="bottom"
+											data-trigger="focus"
 											data-html="true"
 									>
 										Click for instructions
@@ -389,13 +390,20 @@ Unemployment is measured in order to determine the unemployment rate. The rate i
 
 								<div class="chartContainer row justify-content-md-center">										
 										<!-- Left Panel -->
-										<div class="col-md-6 col-lg-6 col-xl-6"  style="background-color: #f6f9f6;">
+										<div
+												class="col-md-6 col-lg-6 col-xl-6"
+												style="background-color: #f6f9f6; position: relative;"
+										>
 											
 											<!-- Buttons -->
 											<div class="buttons"></div>
 
 											<!-- info card -->
-											<div class="card border-success mb-3 border border-success" id="leftinfocard" style="max-width: 40rem;">
+											<div
+													class="card border-success mb-3 border border-success"
+													id="leftinfocard"
+													style="max-width: 40rem; position: absolute; left: 100px; top: 150px;"
+											>
 												<div class="card-body text-success">
 													<h5 class="card-title"></h5>
 													<p class="card-text"></p>
