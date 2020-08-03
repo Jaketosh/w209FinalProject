@@ -227,9 +227,9 @@ function render(data, option, onMouseover, onMouseout) {
   // console.log(id, "data", data);
 
   const svgWidth = 550;
-  const svgHeight = 300;
+  const svgHeight = 250;
   const margin = {
-    top: 50,
+    top: 10,
     bottom: 50,
     left: 75,
     right: 50,
@@ -343,14 +343,14 @@ function render(data, option, onMouseover, onMouseout) {
     .style("text-anchor", "end")
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
-    .attr("transform", "rotate(-65)");
+    .attr("transform", "rotate(-25)");
 
   svg.append("g").call(d3.axisLeft(yScale));
 
   svg
     .append("text")
-    .attr("x", svgWidth / 2)
-    .attr("y", margin.top - 50)
+    .attr("x", svgWidth / 2.5)
+    .attr("y", margin.top)
     // .attr("y", (0 - margin.top)/2)
     .attr("font-family", "sans-serif")
     .attr("font-size", "20px")
