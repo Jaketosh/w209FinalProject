@@ -1,5 +1,6 @@
 var startDateDisplay = new Date(1950, 10, 1);
 var endDateDisplay = new Date(2020, 6, 1);
+const MAX_SAMPLE_SIZE = 1000;
 
 console.log("startDate", startDateDisplay)
 console.log("endDate", endDateDisplay)
@@ -53,8 +54,8 @@ const financialCrisis = [
     "Recession Duration: 1 Year 6 months",
     ]},
   // {start: parseDate("2020-02-01"), end: new Date(), name: "Covid Crisis"},
-  {start: parseDate("1947-01-01"), end: new Date(), name: "All Data Available: 1947 ~ 2020"},
-]  
+  {start: parseDate("1947-01-01"), end: new Date(), name: "All Data Available: 1947 ~ 2020", info: []},
+]
 
 
 const qes = [
@@ -171,6 +172,23 @@ function parseCSV(data) {
   return data;
 }
 
+function limitSampleSize(data) {
+  // Uniformly sample points from data array.
+  // Ensure the max sample size <= MAX_SAMPLE_SIZE.
+  const totalSize = data.length;
+  if (totalSize <= MAX_SAMPLE_SIZE) {
+    return data;
+  }
+
+  let sampledData = [];
+  const samplePerN = parseInt(totalSize / MAX_SAMPLE_SIZE);
+  for (let i = 0; i < totalSize; i += samplePerN) {
+    sampledData.push(data[i]);
+  }
+
+  return sampledData;
+}
+
 // =================== DataLoader: load data, parseData, render data
 
 class DataLoaderCSV {
@@ -179,6 +197,7 @@ class DataLoaderCSV {
       .csv(url)
       // .then((result) => console.log("S&P 500 data: ", result))
       .then(parseCSV)
+      .then(limitSampleSize)
       // .then((result) => console.log("S&P 500 data: ", result));
   }
 }
@@ -240,6 +259,8 @@ function render(data, option, onMouseover, onMouseout) {
     .attr("id", `${id}svg`)
     .attr("width", svgWidth)
     .attr("height", svgHeight)
+    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
@@ -381,14 +402,11 @@ function render(data, option, onMouseover, onMouseout) {
     .style("visibility", "hidden");
   
   function showTooltip(d) {
-    console.log("mouse position", d3.mouse(this));
     tooltip
       .style("visibility", "visible")
       .html(formatDate(d.date) + ": " + formatValue(d.value) + "<br /> Change Since Start: " + calculatePercentageChange(d) + "%")
-      .style("left", `${event.layerX + 10}px`)
-      .style("top", `${event.layerY - 10}px`);
-      // .style("top",  (d3.mouse(this)[1]) + "px")
-      // .style("left", (d3.mouse(this)[0]) + "px");
+      .style("left", `${d3.event.offsetX + 10}px`)
+      .style("top", `${d3.event.offsetY - 10}px`);
   }
 
   // ============== QE rectangles
