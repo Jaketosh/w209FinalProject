@@ -312,8 +312,13 @@ function render(data, option, onMouseover, onMouseout) {
 
   const strokeStyle = isDotPlot ? "black" : "#69b3a2";
   
-  const colorScale = d3.scaleSequential(d3.interpolateGreys)
-    .domain(d3.extent(data, d => d["value"]));
+  function getDivergingDomain() {
+    const [low, high] = d3.extent(data, d => d["value"]);
+    const neutral = 5.5;
+    return [high, neutral, low];
+  }
+  const colorScale = d3.scaleDiverging(d3.interpolateRdYlGn)
+    .domain(getDivergingDomain());
   
   const fillStyle = (d) => {
     if (isDotPlot) {
