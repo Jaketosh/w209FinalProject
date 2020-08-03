@@ -35,7 +35,12 @@
     <script src="js/main.js"></script>
     <script type="module" src="js/homepage.js"></script>
 
-
+		<!-- Enable bootstrap popover. -->
+		<script>
+			$(function () {
+				$('[data-toggle="popover"]').popover()
+			})
+		</script>
 
 </head>
 
@@ -368,15 +373,18 @@ Unemployment is measured in order to determine the unemployment rate. The rate i
           <div class='chapter' id='stock-vis'>
             <div class='container' style="max-height: 100vh; overflow: auto;">
                 <div class="row">
-									<h2 class="section-heading">Standard Recessionary Metrics</h2>
-									<!-- <strong>Try Below Interactions</strong>
-									<div>
-										<ul>
-											<li>Click one of below tag to see different historical recession. </li>
-											<li>Put mouseover one of the data point you interested, relevent data points on other three graphs will be highlighted as well. </li>
-										</ul>
-	
-									</div> -->
+									<h2 class="section-heading" style="display: inline-block;">Standard Recessionary Metrics</h2>
+									<button
+											class="btn btn-primary"
+											style="margin: 0 0 10px 10px;"
+											data-toggle="popover"
+											title="Try interactions"
+											data-content="1. Click one of below tag to see different historical recession. <br/><br/> 2. Put mouseover one of the data point you interested, relevent data points on other three graphs will be highlighted as well."
+											data-placement="bottom"
+											data-html="true"
+									>
+										Click for instructions
+									</button>
 								</div>
 
 								<div class="chartContainer row justify-content-md-center">										
