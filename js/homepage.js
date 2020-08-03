@@ -313,8 +313,11 @@ function render(data, option, onMouseover, onMouseout) {
   const strokeStyle = isDotPlot ? "black" : "#69b3a2";
   
   function getDivergingDomain() {
-    const [low, high] = d3.extent(data, d => d["value"]);
+    // let [low, high] = d3.extent(data, d => d["value"]);
+    // Hard-code the numbers below to ensure color consistency across plots.
+    const high = 8.0;
     const neutral = 5.5;
+    const low = 3.0;
     return [high, neutral, low];
   }
   const colorScale = d3.scaleDiverging(d3.interpolateRdYlGn)
