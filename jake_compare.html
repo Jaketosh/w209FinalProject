@@ -1,0 +1,33 @@
+
+<meta charset="utf-8">
+<link href="css/jake.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+
+<h2 class = "jakeh2">Compare Curves</h2>
+<fieldset class="checkboxContainer">
+    <legend>Choose Recession Shapes to Compare</legend>
+    <div>
+        <input type="checkbox" class="shapeCheck" id="currentShapeCheck" value = "currenShapeCheck" checked> 
+        <label for="currentShapeCheck">Current Data (2019 - Present)</label>
+    </div>
+    <div>
+        <input type="checkbox" class="shapeCheck" id="vShapeCheck" value = "vShapeCheck" checked> 
+        <label for="vShapeCheck">V Shape (1952 - 1955)</label>
+    </div>
+    <div>
+        <input type="checkbox" class="shapeCheck" id="uShapeCheck" value = "uShapeCheck"> 
+        <label for="uShapeCheck">U Shape (1973 - 1975)</label>
+    </div>
+    <div>
+        <input type="checkbox" class="shapeCheck" id="wShapeCheck" value = "wShapeCheck"> 
+        <label for="wShapeCheck">W Shape (1978 - 1983)</label>
+    </div>
+    <div>
+        <input type="checkbox" class="shapeCheck" id="lShapeCheck" value = "lShapeCheck"> 
+        <label for="lShapeCheck">L Shape (2007 - 2010)</label>
+    </div>
+</fieldset>
+<svg id = "compareSVG" height="200px" width="300px">
+</svg>
+<script src="js/jake.js"></script>

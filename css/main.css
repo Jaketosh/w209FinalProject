@@ -52,6 +52,15 @@ h2.less {
     text-align: center;
 }
 
+.navbar-nav{
+    width: 1500px !important;
+}
+
+#nav-container{
+    margin-right: 30px !important;
+    margin-left: 125px !important;
+}
+
 .chapter {
     height: 100vh;
     position: relative;
@@ -97,7 +106,7 @@ h2.less {
     cursor: default;
     color: white;
 
-
+}
 
 #navbar .active a, #navbar a:hover {
     color: #3F8F8B;
