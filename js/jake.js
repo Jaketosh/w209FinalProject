@@ -806,120 +806,124 @@ d3.json(dataPath,function(data) {
         var color = d3.scaleOrdinal(d3.schemeCategory10);
         color.domain(names);
 
-        compareSVG = setupCompareSVG(possibleQuarters, yScaleMin, yScaleMax, avgGDPGrowth1947_2009);
-        drawCompareLine(names[0], compareSVG, editedCurrentShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[0]));
-        drawCompareLine(names[1], compareSVG, editedVShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[1]));
+        var compareSVG = d3.select("#compareSVG");
+        if (compareSVG._groups[0][0] != null)
+        {
+            compareSVG = setupCompareSVG(possibleQuarters, yScaleMin, yScaleMax, avgGDPGrowth1947_2009);
+            drawCompareLine(names[0], compareSVG, editedCurrentShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[0]));
+            drawCompareLine(names[1], compareSVG, editedVShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[1]));
 
-        /*
-        var dataBeingUsed = [editedCurrentShapeData, editedVShapeData];
-        var currentShapeIndex = 0;
-        var vShapeIndex = 1;
-        var uShapeIndex = -1;
-        var wShapeIndex = -1;
-        var lShapeIndex = -1;
+            /*
+            var dataBeingUsed = [editedCurrentShapeData, editedVShapeData];
+            var currentShapeIndex = 0;
+            var vShapeIndex = 1;
+            var uShapeIndex = -1;
+            var wShapeIndex = -1;
+            var lShapeIndex = -1;
 
-        updateError(dataBeingUsed);
-        */
+            updateError(dataBeingUsed);
+            */
 
-        var currentDataCheckbox = document.querySelector('input[id="currentShapeCheck"]');
-        currentDataCheckbox.addEventListener('change', () => {
-            if(currentDataCheckbox.checked){
-                drawCompareLine(names[0], compareSVG, editedCurrentShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[0]));
-                /*
-                currentShapeIndex = dataBeingUsed.length;
-                dataBeingUsed.push(editedCurrentShapeData);
-                updateError(dataBeingUsed);
-                */
-            }
-            else{
-                deleteCompareLine(names[0]);
-                /*
-                dataBeingUsed.splice(currentShapeIndex, 1);
-                currentShapeIndex = -1;
-                updateError(dataBeingUsed);
-                */
-            }
-        })
+            var currentDataCheckbox = document.querySelector('input[id="currentShapeCheck"]');
+            currentDataCheckbox.addEventListener('change', () => {
+                if(currentDataCheckbox.checked){
+                    drawCompareLine(names[0], compareSVG, editedCurrentShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[0]));
+                    /*
+                    currentShapeIndex = dataBeingUsed.length;
+                    dataBeingUsed.push(editedCurrentShapeData);
+                    updateError(dataBeingUsed);
+                    */
+                }
+                else{
+                    deleteCompareLine(names[0]);
+                    /*
+                    dataBeingUsed.splice(currentShapeIndex, 1);
+                    currentShapeIndex = -1;
+                    updateError(dataBeingUsed);
+                    */
+                }
+            })
 
-        var vShapeCheckbox = document.querySelector('input[id="vShapeCheck"]');
-        vShapeCheckbox.addEventListener('change', () => {
-            if(vShapeCheckbox.checked){
-                drawCompareLine(names[1], compareSVG, editedVShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[1]));
-                /*
-                vShapeIndex = dataBeingUsed.length;
-                dataBeingUsed.push(editedVShapeData);
-                updateError(dataBeingUsed);
-                */
-            }
-            else{
-                deleteCompareLine(names[1]);
-                /*
-                dataBeingUsed.splice(vShapeIndex, 1);
-                vShapeIndex = -1;
-                updateError(dataBeingUsed);
-                */
-            }
-        })
+            var vShapeCheckbox = document.querySelector('input[id="vShapeCheck"]');
+            vShapeCheckbox.addEventListener('change', () => {
+                if(vShapeCheckbox.checked){
+                    drawCompareLine(names[1], compareSVG, editedVShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[1]));
+                    /*
+                    vShapeIndex = dataBeingUsed.length;
+                    dataBeingUsed.push(editedVShapeData);
+                    updateError(dataBeingUsed);
+                    */
+                }
+                else{
+                    deleteCompareLine(names[1]);
+                    /*
+                    dataBeingUsed.splice(vShapeIndex, 1);
+                    vShapeIndex = -1;
+                    updateError(dataBeingUsed);
+                    */
+                }
+            })
 
-        var uShapeCheckbox = document.querySelector('input[id="uShapeCheck"]');
-        uShapeCheckbox.addEventListener('change', () => {
-            if(uShapeCheckbox.checked){
-                drawCompareLine(names[2], compareSVG, editedUShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[2]));
-                /*
-                uShapeIndex = dataBeingUsed.length;
-                dataBeingUsed.push(editedUShapeData);
-                updateError(dataBeingUsed);
-                */
-            }
-            else{
-                deleteCompareLine(names[2]);
-                /*
-                dataBeingUsed.splice(uShapeIndex, 1);
-                uShapeIndex = -1;
-                updateError(dataBeingUsed);
-                */
-            }
-        })
+            var uShapeCheckbox = document.querySelector('input[id="uShapeCheck"]');
+            uShapeCheckbox.addEventListener('change', () => {
+                if(uShapeCheckbox.checked){
+                    drawCompareLine(names[2], compareSVG, editedUShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[2]));
+                    /*
+                    uShapeIndex = dataBeingUsed.length;
+                    dataBeingUsed.push(editedUShapeData);
+                    updateError(dataBeingUsed);
+                    */
+                }
+                else{
+                    deleteCompareLine(names[2]);
+                    /*
+                    dataBeingUsed.splice(uShapeIndex, 1);
+                    uShapeIndex = -1;
+                    updateError(dataBeingUsed);
+                    */
+                }
+            })
 
-        var wShapeCheckbox = document.querySelector('input[id="wShapeCheck"]');
-        wShapeCheckbox.addEventListener('change', () => {
-            if(wShapeCheckbox.checked){
-                drawCompareLine(names[3], compareSVG, editedWShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[3]));
-                /*
-                wShapeIndex = dataBeingUsed.length;
-                dataBeingUsed.push(editedWShapeData);
-                updateError(dataBeingUsed);
-                */
-            }
-            else{
-                deleteCompareLine(names[3]);
-                /*
-                dataBeingUsed.splice(wShapeIndex, 1);
-                wShapeIndex = -1;
-                updateError(dataBeingUsed);
-                */
-            }
-        })
+            var wShapeCheckbox = document.querySelector('input[id="wShapeCheck"]');
+            wShapeCheckbox.addEventListener('change', () => {
+                if(wShapeCheckbox.checked){
+                    drawCompareLine(names[3], compareSVG, editedWShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[3]));
+                    /*
+                    wShapeIndex = dataBeingUsed.length;
+                    dataBeingUsed.push(editedWShapeData);
+                    updateError(dataBeingUsed);
+                    */
+                }
+                else{
+                    deleteCompareLine(names[3]);
+                    /*
+                    dataBeingUsed.splice(wShapeIndex, 1);
+                    wShapeIndex = -1;
+                    updateError(dataBeingUsed);
+                    */
+                }
+            })
 
-        var lShapeCheckbox = document.querySelector('input[id="lShapeCheck"]');
-        lShapeCheckbox.addEventListener('change', () => {
-            if(lShapeCheckbox.checked){
-                drawCompareLine(names[4], compareSVG, editedLShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[4]));
-                /*
-                lShapeIndex = dataBeingUsed.length;
-                dataBeingUsed.push(editedLShapeData);
-                updateError(dataBeingUsed);
-                */
-            }
-            else{
-                deleteCompareLine(names[4]);
-                /*
-                dataBeingUsed.splice(lShapeIndex, 1);
-                lShapeIndex = -1;
-                updateError(dataBeingUsed);
-                */
-            }
-        })
+            var lShapeCheckbox = document.querySelector('input[id="lShapeCheck"]');
+            lShapeCheckbox.addEventListener('change', () => {
+                if(lShapeCheckbox.checked){
+                    drawCompareLine(names[4], compareSVG, editedLShapeData, possibleQuarters, yScaleMin, yScaleMax, color(names[4]));
+                    /*
+                    lShapeIndex = dataBeingUsed.length;
+                    dataBeingUsed.push(editedLShapeData);
+                    updateError(dataBeingUsed);
+                    */
+                }
+                else{
+                    deleteCompareLine(names[4]);
+                    /*
+                    dataBeingUsed.splice(lShapeIndex, 1);
+                    lShapeIndex = -1;
+                    updateError(dataBeingUsed);
+                    */
+                }
+            })
+        }
 
 })
 ;
