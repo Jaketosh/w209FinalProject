@@ -90,12 +90,12 @@ function dataSwap(d) {
   startDateDisplay = new Date(oldstartDate)
 
   // option1: plot graph 120 days before recession
-  startDateDisplay.setDate(oldstartDate.getDate() - 180)
+  // startDateDisplay.setDate(oldstartDate.getDate() - 120)
   console.log("old start date", oldstartDate)
   console.log("start date", startDateDisplay)
   
   // // option2: plot graph start from recession date
-  // startDate = d.start;
+  startDateDisplay = d.start;
   
   endDateDisplay = d.end;
 
