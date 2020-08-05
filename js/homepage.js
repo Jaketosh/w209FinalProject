@@ -280,9 +280,6 @@ function render(data, option, onMouseover, onMouseout) {
       
   }
     
-  // if (id !== "unemployment") {
-  //   LinePlot()
-  // }
   LinePlot()
     
   // ========== Draw Dots Plot
