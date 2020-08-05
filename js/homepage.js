@@ -5,10 +5,8 @@ const MAX_SAMPLE_SIZE = 1000;
 console.log("startDate", startDateDisplay)
 console.log("endDate", endDateDisplay)
 
-// var startDateTest = new Date(2007, 10, 1);
-// var endDateTest = new Date(2020, 6, 1);
-var startDateTest = new Date(2007, 12, 1);
-var endDateTest = new Date(2009, 6, 1);
+var startDateTest = new Date(1980, 1, 1);
+var endDateTest = new Date(1980, 7, 1);
 
 const titles = {
   gdp: "GDP",
@@ -25,14 +23,11 @@ const titles = {
 var parseDate = d3.timeParse("%Y-%m-%d")
 
 const financialCrisis = [
-  // {start: parseDate("1948-11-01"), end: parseDate("1949-10-01"), name: ""},
-  // {start: parseDate("1953-07-01"), end: parseDate("1954-05-01"), name: ""},
-  // .... skips many. TODO: add 
-  {start: parseDate("1980-01-01"), end: parseDate("1980-07-01"), name: "1980 recession", info: [
-    "GDP Change: -2.2%",
-    "Recession Period: Jan 1980 - Jul 1980",
-    "Recession Duration: 6 months",
-    ]},
+  // {start: parseDate("1980-01-01"), end: parseDate("1980-07-01"), name: "1980 recession", info: [
+  //   "GDP Change: -2.2%",
+  //   "Recession Period: Jan 1980 - Jul 1980",
+  //   "Recession Duration: 6 months",
+  //   ]},
   {start: parseDate("1981-07-01"), end: parseDate("1982-11-01"), name: "1981–1982 recession", info: [
     "GDP Change: -2.7%",
     "Recession Period: Jul 1981 - Nov 1982",
